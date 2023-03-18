@@ -26,38 +26,38 @@ class Blog{
         }
     }
 
-    // // delete blog
-    // public function deleteBlog($item_id){
-    //     $sql = "SELECT * FROM blog WHERE id=$item_id";
-    //     $result = $this->db->con->query($sql);
-    //     $row = $result->fetch_assoc();
-    //     $unlink = unlink("../img/".$row['image']);
-    //     if($unlink){
-    //         $res = $this->db->con->query("DELETE FROM blog WHERE id={$item_id}");
-    //         if($res){
-    //             header("Location:" . $_SERVER['PHP_SELF']);
-    //         }
-    //     }
-    // }
+    // delete blog
+    public function deleteBlog($item_id){
+        $sql = "SELECT * FROM blog WHERE id=$item_id";
+        $result = $this->db->con->query($sql);
+        $row = $result->fetch_assoc();
+        $unlink = unlink("../img/".$row['image']);
+        if($unlink){
+            $res = $this->db->con->query("DELETE FROM blog WHERE id={$item_id}");
+            if($res){
+                header("Location:" . $_SERVER['PHP_SELF']);
+            }
+        }
+    }
 
 
-    // // get one blog
-    // public function getBlog(){
-    //     $item_id = $_GET['id'];
-    //     $sql = "SELECT * FROM blog WHERE id=$item_id";
-    //     $result = $this->db->con->query($sql);
-    //     $row = $result->fetch_assoc();
-    //     return $row;
-    // }
+    // get one blog
+    public function getBlog(){
+        $item_id = $_GET['id'];
+        $sql = "SELECT * FROM blog WHERE id=$item_id";
+        $result = $this->db->con->query($sql);
+        $row = $result->fetch_assoc();
+        return $row;
+    }
     
-    // // update blog
-    // public function updateBlog($name, $category_id, $price, $image){
-    //     $item_id = $_GET['id'];
-    //     $sql_update = "UPDATE `blog` SET `name` = '$name', `category_id` = '$category_id', `price` = '$price', `image` = '$image' WHERE `blog`.`id` = $item_id;";
-    //     if ($this->db->con->query($sql_update) == TRUE) {
-    //         header("Location: admin.php");
-    //     } else {
-    //         echo "Error updating record: " . $this->db->con->error;
-    //     }
-    // }
+    // update blog
+    public function updateBlog($content, $title, $image, $category_id, $tags){
+        $item_id = $_GET['id'];
+        $sql_update = "UPDATE `blog` SET `content` = '$content', `title` = '$title', `image` = '$image', `category_id` = '$category_id', `tags` = '$tags' WHERE `blog`.`id` = $item_id;";
+        if ($this->db->con->query($sql_update) == TRUE) {
+            header("Location: blog.php");
+        } else {
+            echo "Error updating record: " . $this->db->con->error;
+        }
+    }
 }

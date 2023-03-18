@@ -72,23 +72,23 @@ if (isset($_POST['delete-product'])){
                 <tbody>
                     <?php foreach($products->getProducts() as $row){?>
                     <tr>
-                        <td><?= $row['id']?></td>
+                        <th><?= $row['id']?></th>
                         <td><img src="../img/<?= $row['image']?>"></td>
                         <td><?= $row['name']?></td>
                         <td><?= $row['category_id']?></td>
                         <td>$<?= $row['price']?></td>
                         <td>
-                        <div class="btns d-flex gap-2">
-                            <form method="post">
-                                <input type="hidden" value="<?= $row['id'] ?? 0 ?>" name="item_id">
-                                <button type="submit" name="delete-product" class="btn btn-danger">D</button>
-                            </form>
-                            <form method="get">
-                                <input type="hidden" value="<?= $row['id'] ?? 0 ?>" name="item_id">
-                                <a href="./edit_product.php?id=<?= $row['id'] ?? 0 ?>" class="btn btn-warning">E</a>
-                            </form>
-                        </div>
-                    </tr>
+                            <div class="btns d-flex gap-2">
+                                <form method="post">
+                                    <input type="hidden" value="<?= $row['id'] ?? 0 ?>" name="item_id">
+                                    <button type="submit" name="delete-product" class="btn btn-danger">D</button>
+                                </form>
+                                <form method="get">
+                                    <input type="hidden" value="<?= $row['id'] ?? 0 ?>" name="item_id">
+                                    <a href="./edit_product.php?id=<?= $row['id'] ?? 0 ?>" class="btn btn-warning">E</a>
+                                </form>
+                            </div>
+                        </tr>
                     <?php }?>
                 </tbody>
             </table>
@@ -113,7 +113,7 @@ if (isset($_POST['delete-product'])){
                               <input type="text" name="name" class="form-control" id="name" required>
                             </div>
                             <div class="mb-3">
-                                <label>Category id</label>
+                                <label>Select category</label>
                                 <select class="form-select" name="category_id" aria-label="Default select example" required>
                                     <option selected></option>
                                     <?php foreach($categories->getCategories() as $row){?>

@@ -35,7 +35,7 @@ $image = $row['image'];
                     <input type="text" value="<?= $name?>" name="name" class="form-control" id="name" required>
                 </div>
                 <div class="mb-3">
-                    <label>Category id</label>
+                    <label>Select category</label>
                     <select class="form-select" name="category_id" aria-label="Default select example">
                         <option selected></option>
                         <?php foreach($categories->getCategories() as $row){?>

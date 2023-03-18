@@ -137,7 +137,7 @@ include('./header.php');
                                                 ?>
                                                         <a href="#" class="latest-product__item">
                                                             <div class="latest-product__item__pic">
-                                                                <img src="<?= $row['image'] ?>" alt="">
+                                                                <img src="./img/<?= $row['image'] ?>" alt="">
                                                             </div>
                                                             <div class="latest-product__item__text">
                                                                 <h6><?= $row['name'] ?></h6>
@@ -167,7 +167,7 @@ include('./header.php');
                                 <?php foreach ($products->getProducts() as $row) { ?>
                                     <div class="col-lg-4">
                                         <div class="product__discount__item">
-                                            <div class="product__discount__item__pic set-bg" data-setbg="<?= $row['image'] ?>">
+                                            <div class="product__discount__item__pic set-bg" data-setbg="./img/<?= $row['image'] ?>">
                                                 <div class="product__discount__percent">-20%</div>
                                                 <ul class="product__item__pic__hover">
                                                     <li><a href="#"><i class="fa fa-heart"></i></a></li>
@@ -218,7 +218,7 @@ include('./header.php');
                         <?php foreach ($products->getProducts() as $row) { ?>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="<?= $row['image'] ?>">
+                                    <div class="product__item__pic set-bg" data-setbg="./img/<?= $row['image'] ?>">
                                         <ul class="product__item__pic__hover">
                                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                             <li><a href="#"><i class="fa fa-retweet"></i></a></li>

@@ -3292,6 +3292,7 @@ ol {
 .admin .main .products img {
   width: 50px;
   transition: 0.2s;
+  background-color: #fff;
 }
 .admin .main .products img:hover {
   transform: scale(3);

@@ -6,19 +6,21 @@ if(isset($_POST['set_product'])){
     $category_id = $_POST['category_id'];
     $price = $_POST['price'];
 
-    $uploads_dir = './img';
+    $uploads_dir = '../img';
     $tmp_name = $_FILES["image"]["tmp_name"];
     $img_name = $_FILES["image"]["name"];
     $fileType = strtolower(pathinfo($img_name,PATHINFO_EXTENSION));
     $imgName = bin2hex(random_bytes(5));
-    $image = "$uploads_dir/$imgName.$fileType";
-    move_uploaded_file($tmp_name, "$image");
+    $image = "$imgName.$fileType";
+    move_uploaded_file($tmp_name, "$uploads_dir/$image");
 
     $setProducts = $products->setProduct($name, $category_id, $price, $image);
 }
+
 if (isset($_POST['delete-product'])){
     $deletedrecord = $products->deleteProduct($_POST['item_id']);
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,7 +73,7 @@ if (isset($_POST['delete-product'])){
                     <?php foreach($products->getProducts() as $row){?>
                     <tr>
                         <td><?= $row['id']?></td>
-                        <td><img src=".<?= $row['image']?>"></td>
+                        <td><img src="../img/<?= $row['image']?>"></td>
                         <td><?= $row['name']?></td>
                         <td><?= $row['category_id']?></td>
                         <td>$<?= $row['price']?></td>

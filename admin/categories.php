@@ -1,5 +1,9 @@
 <?php
 include('../functions.php');
+
+if (isset($_POST['delete-category'])){
+    $deletedrecord = $products->deleteProduct($_POST['item_id']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,14 +48,27 @@ include('../functions.php');
                         <th>ID</th>
                         <th>Image</th>
                         <th>Name</th>
+                        <th>Buttons</th>
                     </tr>
                 </tbody>
                 <tbody>
                     <?php foreach($categories->getCategories() as $row){?>
                     <tr>
-                        <td><?= $row['id']?></td>
+                        <th><?= $row['id']?></th>
                         <td><img src="../<?= $row['image']?>"></td>
                         <td><?= $row['name']?></td>
+                        <td>
+                            <div class="btns d-flex gap-2">
+                                <form method="post">
+                                    <input type="hidden" value="<?= $row['id'] ?? 0 ?>" name="item_id">
+                                    <button type="submit" name="delete-category" class="btn btn-danger">D</button>
+                                </form>
+                                <form method="get">
+                                    <input type="hidden" value="<?= $row['id'] ?? 0 ?>" name="item_id">
+                                    <a href="./edit_product.php?id=<?= $row['id'] ?? 0 ?>" class="btn btn-warning">E</a>
+                                </form>
+                            </div>
+                        </td>
                     </tr>
                     <?php }?>
                 </tbody>

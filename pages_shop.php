@@ -34,7 +34,7 @@ include('./header.php');
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
                             <?php foreach($products->getProducts() as $row){?>
-                                <img data-imgbigurl="<?= $row['image']?>" src="<?= $row['image']?>" alt="">
+                                <img data-imgbigurl="./img/<?= $row['image']?>" src="./img/<?= $row['image']?>" alt="">
                             <?php }?>
                         </div>
                     </div>
@@ -175,7 +175,7 @@ include('./header.php');
                 <?php foreach($products->getProducts() as $index => $row){ if($index < 4){?>
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="<?= $row['image']?>">
+                            <div class="product__item__pic set-bg" data-setbg="./img/<?= $row['image']?>">
                                 <ul class="product__item__pic__hover">
                                     <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                     <li><a href="#"><i class="fa fa-retweet"></i></a></li>

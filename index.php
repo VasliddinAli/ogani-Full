@@ -27,7 +27,7 @@ include('./header.php');
                 <div class="categories__slider owl-carousel">
                     <?php foreach ($categories->getCategories() as $row) { ?>
                         <div class="col-lg-3">
-                            <div class="categories__item set-bg" data-setbg="<?= $row['image'] ?>">
+                            <div class="categories__item set-bg" data-setbg="./img/<?= $row['image'] ?>">
                                 <h5><a href="#"><?= $row['name'] ?></a></h5>
                             </div>
                         </div>
@@ -58,7 +58,7 @@ include('./header.php');
                 <?php foreach ($products->getProducts() as $row) { ?>
                     <div class="col-lg-3 col-md-4 col-sm-6 mix category_<?= $row['category_id'] ?>">
                         <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="<?= $row['image'] ?>">
+                            <div class="featured__item__pic set-bg" data-setbg="./img/<?= $row['image'] ?>">
                                 <ul class="featured__item__pic__hover">
                                     <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                     <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -116,7 +116,7 @@ include('./header.php');
                                         ?>
                                                 <a href="#" class="latest-product__item">
                                                     <div class="latest-product__item__pic">
-                                                        <img src="<?= $row['image'] ?>" alt="">
+                                                        <img src="./img/<?= $row['image'] ?>" alt="">
                                                     </div>
                                                     <div class="latest-product__item__text">
                                                         <h6><?= $row['name'] ?></h6>

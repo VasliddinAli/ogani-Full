@@ -42,7 +42,7 @@ include('./header.php');
                                 <?php foreach($cart->getCart() as $cart){?>
                                 <tr>
                                     <td class="shoping__cart__item">
-                                        <img src="<?= $cart['image']?>" width="100px" alt="">
+                                        <img src="./img/<?= $cart['image']?>" width="100px" alt="">
                                         <h5><?= $cart['name']?></h5>
                                     </td>
                                     <td class="shoping__cart__price">

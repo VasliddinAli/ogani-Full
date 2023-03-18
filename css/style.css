@@ -3294,7 +3294,7 @@ ol {
   transition: 0.2s;
 }
 .admin .main .products img:hover {
-  transform: scale(5);
+  transform: scale(3);
   box-shadow: 1px 1px 10px 1px #ccc;
   cursor: pointer;
 }/*# sourceMappingURL=style.css.map */

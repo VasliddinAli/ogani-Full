@@ -46,7 +46,6 @@ include('../functions.php');
                         <th>Content</th>
                         <th>Title</th>
                         <th>Category_id</th>
-                        <th>User_id</th>
                         <th>Tags</th>
                         <th>dateTime</th>
                     </tr>
@@ -57,9 +56,8 @@ include('../functions.php');
                         <td><?= $row['id']?></td>
                         <td><img src="../<?= $row['image']?>"></td>
                         <td><?= $row['content'] ?></td>
-                        <td><?= substr($row['title'], 0, 200);?>...</td>
+                        <td><?= substr($row['title'], 0, 200);?></td>
                         <td><?= $row['category_id']?></td>
-                        <td><?= $row['user_id']?></td>
                         <td><?= $row['tags']?></td>
                         <td><?= $row['dateTime']?></td>
                     </tr>
@@ -67,7 +65,7 @@ include('../functions.php');
                 </tbody>
             </table>
         </section>
-         
+
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -80,19 +78,19 @@ include('../functions.php');
                         <form>
                             <div class="mb-3">
                               <label for="image" class="form-label"> Product image</label>
-                              <input type="file" class="form-control" id="image" required>
+                              <input type="file" name="image" class="form-control" id="image" required>
                             </div>
                             <div class="mb-3">
                               <label for="content" class="form-label">Product content</label>
-                              <input type="text" class="form-control" id="content" required>
+                              <input type="text" name="content" class="form-control" id="content" required>
                             </div>
                             <div class="mb-3">
                               <label for="title" class="form-label">Product title</label>
-                              <textarea type="text" class="form-control" id="title" style="height: 100px" required></textarea>
+                              <textarea type="text" name="title" class="form-control" id="title" style="height: 100px" required></textarea>
                             </div>
                             <div class="mb-3">
                                 <label>Category id</label>
-                                <select class="form-select" aria-label="Default select example" required>
+                                <select class="form-select" name="category_id" aria-label="Default select example" required>
                                     <option selected></option>
                                     <?php foreach($categories->getCategories() as $row){?>
                                     <option value="<?= $row['id']?>"><?= $row['name']?></option>
@@ -101,9 +99,9 @@ include('../functions.php');
                             </div>
                             <div class="mb-3">
                               <label for="tags" class="form-label">Tags</label>
-                              <input type="number" class="form-control" id="tags" required>
+                              <input type="text" name="tags" class="form-control" id="tags" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" name="submit_blog" class="btn btn-primary">Submit</button>
                           </form>
                     </div>
                 </div>
@@ -116,3 +114,24 @@ include('../functions.php');
 </body>
 
 </html>
+
+<?php
+
+if(isset($_POST['set_category'])){
+    $content = $_POST['content'];
+    $title = $_POST['title'];
+    $category_id = $_POST['category_id'];
+    $tags = $_POST['tags'];
+
+    $uploads_dir = '../img';
+    $tmp_name = $_FILES["image"]["tmp_name"];
+    $img_name = $_FILES["image"]["name"];
+    $fileType = strtolower(pathinfo($img_name,PATHINFO_EXTENSION));
+    $imgName = bin2hex(random_bytes(5));
+    $image = "$imgName.$fileType";
+    move_uploaded_file($tmp_name, "$uploads_dir/$image");
+
+    $blog->setBlog($content, $title, $image, $category_id, $tags);
+}
+
+?>

@@ -14,7 +14,7 @@ if(isset($_POST['set_product'])){
     $image = "$imgName.$fileType";
     move_uploaded_file($tmp_name, "$uploads_dir/$image");
 
-    $setProducts = $products->setProduct($name, $category_id, $price, $image);
+    $setProduct = $products->setProduct($name, $category_id, $price, $image);
 }
 
 if (isset($_POST['delete-product'])){

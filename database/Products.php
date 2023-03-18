@@ -61,7 +61,7 @@ class Products{
     // update product
     public function updateProduct($name, $category_id, $price, $image){
         $item_id = $_GET['id'];
-        $sql_update = "UPDATE `products` SET `name` = '$name', `category_id` = '$category_id', `price` = '$price', `image` = '$image' WHERE `id` = $item_id;";
+        $sql_update = "UPDATE `products` SET `name` = '$name', `category_id` = '$category_id', `price` = '$price', `image` = '$image' WHERE `products`.`id` = $item_id;";
         if ($this->db->con->query($sql_update) == TRUE) {
             header("Location: admin.php");
         } else {

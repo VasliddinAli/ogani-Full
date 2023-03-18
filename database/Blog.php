@@ -16,4 +16,48 @@ class Blog{
             return $result;
         }
     }
+
+    // insert blog
+    public function setBlog($content, $title, $image, $category_id, $tags){
+        $result = "INSERT INTO `blog` (`content`, `title`, `image`, `category_id`, `tags`) VALUES ('$content', '$title', '$image', '$category_id', '$tags');";
+        if ($this->db->con->query($result)) {
+            header("Location:" . $_SERVER['PHP_SELF']);
+            return $result;
+        }
+    }
+
+    // // delete blog
+    // public function deleteBlog($item_id){
+    //     $sql = "SELECT * FROM blog WHERE id=$item_id";
+    //     $result = $this->db->con->query($sql);
+    //     $row = $result->fetch_assoc();
+    //     $unlink = unlink("../img/".$row['image']);
+    //     if($unlink){
+    //         $res = $this->db->con->query("DELETE FROM blog WHERE id={$item_id}");
+    //         if($res){
+    //             header("Location:" . $_SERVER['PHP_SELF']);
+    //         }
+    //     }
+    // }
+
+
+    // // get one blog
+    // public function getBlog(){
+    //     $item_id = $_GET['id'];
+    //     $sql = "SELECT * FROM blog WHERE id=$item_id";
+    //     $result = $this->db->con->query($sql);
+    //     $row = $result->fetch_assoc();
+    //     return $row;
+    // }
+    
+    // // update blog
+    // public function updateBlog($name, $category_id, $price, $image){
+    //     $item_id = $_GET['id'];
+    //     $sql_update = "UPDATE `blog` SET `name` = '$name', `category_id` = '$category_id', `price` = '$price', `image` = '$image' WHERE `blog`.`id` = $item_id;";
+    //     if ($this->db->con->query($sql_update) == TRUE) {
+    //         header("Location: admin.php");
+    //     } else {
+    //         echo "Error updating record: " . $this->db->con->error;
+    //     }
+    // }
 }

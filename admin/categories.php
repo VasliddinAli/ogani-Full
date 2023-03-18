@@ -1,8 +1,22 @@
 <?php
 include('../functions.php');
 
+if(isset($_POST['set_category'])){
+    $name = $_POST['name'];
+
+    $uploads_dir = '../img';
+    $tmp_name = $_FILES["image"]["tmp_name"];
+    $img_name = $_FILES["image"]["name"];
+    $fileType = strtolower(pathinfo($img_name,PATHINFO_EXTENSION));
+    $imgName = bin2hex(random_bytes(5));
+    $image = "$imgName.$fileType";
+    move_uploaded_file($tmp_name, "$uploads_dir/$image");
+
+    $categories->setCategory($name, $image);
+}
+
 if (isset($_POST['delete-category'])){
-    $deletedrecord = $products->deleteProduct($_POST['item_id']);
+    $deletedrecord = $categories->deleteCategory($_POST['item_id']);
 }
 ?>
 <!DOCTYPE html>
@@ -14,7 +28,6 @@ if (isset($_POST['delete-category'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin panel</title>
 
-    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
@@ -55,7 +68,7 @@ if (isset($_POST['delete-category'])){
                     <?php foreach($categories->getCategories() as $row){?>
                     <tr>
                         <th><?= $row['id']?></th>
-                        <td><img src="../<?= $row['image']?>"></td>
+                        <td><img src="../img/<?= $row['image']?>"></td>
                         <td><?= $row['name']?></td>
                         <td>
                             <div class="btns d-flex gap-2">
@@ -65,7 +78,7 @@ if (isset($_POST['delete-category'])){
                                 </form>
                                 <form method="get">
                                     <input type="hidden" value="<?= $row['id'] ?? 0 ?>" name="item_id">
-                                    <a href="./edit_product.php?id=<?= $row['id'] ?? 0 ?>" class="btn btn-warning">E</a>
+                                    <a href="./edit_category.php?id=<?= $row['id'] ?? 0 ?>" class="btn btn-warning">E</a>
                                 </form>
                             </div>
                         </td>
@@ -74,7 +87,7 @@ if (isset($_POST['delete-category'])){
                 </tbody>
             </table>
         </section>
-         
+
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -84,16 +97,16 @@ if (isset($_POST['delete-category'])){
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form method="post" enctype="multipart/form-data">
                             <div class="mb-3">
                               <label for="image" class="form-label"> Product image</label>
-                              <input type="file" class="form-control" id="image">
+                              <input type="file" name="image" class="form-control" id="image" required>
                             </div>
                             <div class="mb-3">
                               <label for="name" class="form-label">Product name</label>
-                              <input type="text" class="form-control" id="name">
+                              <input type="text" name="name" class="form-control" id="name" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" name="set_category" class="btn btn-primary">Submit</button>
                           </form>
                     </div>
                 </div>

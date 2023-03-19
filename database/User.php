@@ -18,8 +18,8 @@ class User{
     }
 
     // insert user
-    public function setUser($name, $email, $password, $image){
-        $result = "INSERT INTO `user` (`name`, `email`, `password`, `image`) VALUES ('$name', '$email', '$password', '$image');";
+    public function setUser($name, $email, $password){
+        $result = "INSERT INTO `user` (`name`, `email`, `password`) VALUES ('$name', '$email', '$password');";
         if ($this->db->con->query($result)) {
             header("Location: index.php");
             return $result;

@@ -143,7 +143,6 @@ session_start();
                 <input type="text" name="name" placeholder="User name" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>
-                <input type="file" name="image" placeholder="Your mage" title="Your image">
                 <button type="submit" name="sign">Sign up</button>
             </form>
         </div>
@@ -153,16 +152,7 @@ session_start();
                 $name = $_POST['name'];
                 $email = $_POST['email'];
                 $password = $_POST['password'];
-
-                $uploads_dir = './img/users/';
-                $tmp_name = $_FILES["image"]["tmp_name"];
-                $img_name = $_FILES["image"]["name"];
-                $fileType = strtolower(pathinfo($img_name,PATHINFO_EXTENSION));
-                $imgName = bin2hex(random_bytes(5));
-                $image = "$imgName.$fileType";
-                move_uploaded_file($tmp_name, "$uploads_dir/$image");
-
-                $user->setUsers();
+                $user->setUsers($name, $email, $password);
             }
         ?>
         <div class="login">

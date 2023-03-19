@@ -13,7 +13,7 @@ include('./header.php');
                     <div class="breadcrumb__text">
                         <h2>Blog</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
+                            <a href="./index.php">Home</a>
                             <span>Blog</span>
                         </div>
                     </div>
@@ -91,108 +91,24 @@ include('./header.php');
                 </div>
                 <div class="col-lg-8 col-md-7">
                     <div class="row">
+                        <?php foreach($blog->getBlogs() as $row){?>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="blog__item">
                                 <div class="blog__item__pic">
-                                    <img src="img/blog/blog-2.jpg" alt="">
+                                    <img src="./img/<?= $row['image']?>" alt="">
                                 </div>
                                 <div class="blog__item__text">
                                     <ul>
-                                        <li><i class="fa-regular fa-calendar"></i> May 4,2019</li>
+                                        <li><i class="fa-regular fa-calendar"></i> <?= $row['dateTime']?></li>
                                         <li><i class="fa-regular fa-comment"></i> 5</li>
                                     </ul>
-                                    <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>
-                                    <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                        quaerat </p>
+                                    <h5><a href="#"><?= $row['content']?></a></h5>
+                                    <p><?= substr($row['title'], 0, 100);?>...</p>
                                     <a href="#" class="blog__btn">READ MORE <span class="arrow_right"><i class="fa-solid fa-arrow-right"></i></span></a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="img/blog/blog-3.jpg" alt="">
-                                </div>
-                                <div class="blog__item__text">
-                                    <ul>
-                                        <li><i class="fa-regular fa-calendar"></i> May 4,2019</li>
-                                        <li><i class="fa-regular fa-comment"></i> 5</li>
-                                    </ul>
-                                    <h5><a href="#">Visit the clean farm in the US</a></h5>
-                                    <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                        quaerat </p>
-                                    <a href="#" class="blog__btn">READ MORE <span class="arrow_right"><i class="fa-solid fa-arrow-right"></i></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="img/blog/blog-1.jpg" alt="">
-                                </div>
-                                <div class="blog__item__text">
-                                    <ul>
-                                        <li><i class="fa-regular fa-calendar"></i> May 4,2019</li>
-                                        <li><i class="fa-regular fa-comment"></i> 5</li>
-                                    </ul>
-                                    <h5><a href="#">Cooking tips make cooking simple</a></h5>
-                                    <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                        quaerat </p>
-                                    <a href="#" class="blog__btn">READ MORE <span class="arrow_right"><i class="fa-solid fa-arrow-right"></i></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="img/blog/blog-4.jpg" alt="">
-                                </div>
-                                <div class="blog__item__text">
-                                    <ul>
-                                        <li><i class="fa-regular fa-calendar"></i> May 4,2019</li>
-                                        <li><i class="fa-regular fa-comment"></i> 5</li>
-                                    </ul>
-                                    <h5><a href="#">Cooking tips make cooking simple</a></h5>
-                                    <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                        quaerat </p>
-                                    <a href="#" class="blog__btn">READ MORE <span class="arrow_right"><i class="fa-solid fa-arrow-right"></i></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="img/blog/blog-4.jpg" alt="">
-                                </div>
-                                <div class="blog__item__text">
-                                    <ul>
-                                        <li><i class="fa-regular fa-calendar"></i> May 4,2019</li>
-                                        <li><i class="fa-regular fa-comment"></i> 5</li>
-                                    </ul>
-                                    <h5><a href="#">The Moment You Need To Remove Garlic From The Menu</a></h5>
-                                    <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                        quaerat </p>
-                                    <a href="#" class="blog__btn">READ MORE <span class="arrow_right"><i class="fa-solid fa-arrow-right"></i></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="img/blog/blog-6.jpg" alt="">
-                                </div>
-                                <div class="blog__item__text">
-                                    <ul>
-                                        <li><i class="fa-regular fa-calendar"></i> May 4,2019</li>
-                                        <li><i class="fa-regular fa-comment"></i> 5</li>
-                                    </ul>
-                                    <h5><a href="#">Cooking tips make cooking simple</a></h5>
-                                    <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
-                                        quaerat </p>
-                                    <a href="#" class="blog__btn">READ MORE <span class="arrow_right"><i class="fa-solid fa-arrow-right"></i></span></a>
-                                </div>
-                            </div>
-                        </div>
+                        <?php }?>
                         <div class="col-lg-12">
                             <div class="product__pagination blog__pagination">
                                 <a href="#">1</a>

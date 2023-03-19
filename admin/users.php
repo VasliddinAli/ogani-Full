@@ -42,7 +42,6 @@ include('../functions.php');
                         <th>Image</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Password</th>
                     </tr>
                 </tbody>
                 <tbody>
@@ -52,7 +51,6 @@ include('../functions.php');
                             <td><img src="../img/users/<?= $row['image']?>"></td>
                             <td><?= $row['name']?></td>
                             <td><?= $row['email']?></td>
-                            <td><?= $row['password']?></td>
                         </tr>
                     <?php }?>
                 </tbody>

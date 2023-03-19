@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include('./functions.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,8 +47,8 @@ session_start();
             width: 100%;
             height: 100%;
         }
-        
-        .signup label{
+
+        .signup label {
             margin-bottom: 10px;
         }
 
@@ -148,12 +148,14 @@ session_start();
         </div>
 
         <?php
-            if(isset($_POST['sign'])){
-                $name = $_POST['name'];
-                $email = $_POST['email'];
-                $password = $_POST['password'];
-                $user->setUsers($name, $email, $password);
-            }
+        if (isset($_POST['sign'])) {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $pass = $_POST['password'];
+            $password = md5($pass);
+            $user->setUser($name, $email, $password);
+            $_SESSION['user'] = array($name, $email, $password);
+        }
         ?>
         <div class="login">
             <form>
@@ -165,4 +167,5 @@ session_start();
         </div>
     </div>
 </body>
+
 </html>

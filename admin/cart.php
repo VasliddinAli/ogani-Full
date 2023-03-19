@@ -35,9 +35,6 @@ include('../functions.php');
             </div>
         </header>
         <section class="main">
-            <nav>
-                <button class="btn btn-primary mt-3 mb-3" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product</button>
-            </nav>
             <table class="table table-hover products">
                 <tbody>
                     <tr>
@@ -50,7 +47,7 @@ include('../functions.php');
                 <tbody>
                     <?php foreach($cart->getCart() as $row){?>
                     <tr>
-                        <td><?= $row['id']?></td>
+                        <th><?= $row['id']?></th>
                         <td><img src="../<?= $row['image']?>"></td>
                         <td><?= $row['name']?></td>
                         <td>$<?= $row['price']?></td>
@@ -59,44 +56,6 @@ include('../functions.php');
                 </tbody>
             </table>
         </section>
-         
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                              <label for="image" class="form-label"> Product image</label>
-                              <input type="file" class="form-control" id="image">
-                            </div>
-                            <div class="mb-3">
-                              <label for="name" class="form-label">Product name</label>
-                              <input type="text" class="form-control" id="name">
-                            </div>
-                            <div class="mb-3">
-                                <label>Category id</label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected></option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                              <label for="price" class="form-label">Password</label>
-                              <input type="number" class="form-control" id="price">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                          </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

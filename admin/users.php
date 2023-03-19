@@ -40,7 +40,6 @@ include('../functions.php');
                     <tr>
                         <th>ID</th>
                         <th>Image</th>
-                        <th>Role</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Password</th>
@@ -48,14 +47,13 @@ include('../functions.php');
                 </tbody>
                 <tbody>
                     <?php foreach($user->getUsers() as $row){?>
-                    <tr>
-                        <td><?= $row['id']?></td>
-                        <td><img src="../<?= $row['image']?>"></td>
-                        <td><?= $row['role']?></td>
-                        <td><?= $row['name']?></td>
-                        <td><?= $row['email']?></td>
-                        <td><?= $row['password']?></td>
-                    </tr>
+                        <tr>
+                            <td><?= $row['id']?></td>
+                            <td><img src="../img/users/<?= $row['image']?>"></td>
+                            <td><?= $row['name']?></td>
+                            <td><?= $row['email']?></td>
+                            <td><?= $row['password']?></td>
+                        </tr>
                     <?php }?>
                 </tbody>
             </table>

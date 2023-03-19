@@ -81,11 +81,11 @@ if (isset($_POST['delete-product'])){
                             <div class="btns d-flex gap-2">
                                 <form method="post">
                                     <input type="hidden" value="<?= $row['id'] ?? 0 ?>" name="item_id">
-                                    <button type="submit" name="delete-product" class="btn btn-danger">D</button>
+                                    <button type="submit" name="delete-product" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                 </form>
                                 <form method="get">
                                     <input type="hidden" value="<?= $row['id'] ?? 0 ?>" name="item_id">
-                                    <a href="./edit_product.php?id=<?= $row['id'] ?? 0 ?>" class="btn btn-warning">E</a>
+                                    <a href="./edit_product.php?id=<?= $row['id'] ?? 0 ?>" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                                 </form>
                             </div>
                         </tr>

@@ -7,7 +7,7 @@ if (isset($_POST['submit_blog'])) {
     $category_id = $_POST['category_id'];
     $tags = $_POST['tags'];
 
-    $uploads_dir = '../img';
+    $uploads_dir = './img';
     $tmp_name = $_FILES["image"]["tmp_name"];
     $img_name = $_FILES["image"]["name"];
     $fileType = strtolower(pathinfo($img_name, PATHINFO_EXTENSION));

@@ -102,9 +102,9 @@ include('./header.php');
                                         <li><i class="fa-regular fa-calendar"></i> <?= $row['dateTime']?></li>
                                         <li><i class="fa-regular fa-comment"></i> 5</li>
                                     </ul>
-                                    <h5><a href="#"><?= $row['content']?></a></h5>
+                                    <h5><a href="./blog_details.php?id=<?= $row['id']?>"><?= $row['content']?></a></h5>
                                     <p><?= substr($row['title'], 0, 100);?>...</p>
-                                    <a href="#" class="blog__btn">READ MORE <span class="arrow_right"><i class="fa-solid fa-arrow-right"></i></span></a>
+                                    <a href="./blog_details.php?id=<?= $row['id']?>" class="blog__btn">READ MORE <span class="arrow_right"><i class="fa-solid fa-arrow-right"></i></span></a>
                                 </div>
                             </div>
                         </div>

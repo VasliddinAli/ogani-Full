@@ -114,7 +114,7 @@ include('./header.php');
                                             $key++;
                                             if ($index >= $key & $key < 4) {
                                         ?>
-                                                <a href="#" class="latest-product__item">
+                                                <a href="./product_details.php?id=<?= $row['id']?>" class="latest-product__item">
                                                     <div class="latest-product__item__pic">
                                                         <img src="./img/<?= $row['image'] ?>" alt="">
                                                     </div>

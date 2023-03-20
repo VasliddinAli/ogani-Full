@@ -31,7 +31,7 @@ class Blog{
         $sql = "SELECT * FROM blog WHERE id=$item_id";
         $result = $this->db->con->query($sql);
         $row = $result->fetch_assoc();
-        $unlink = unlink("../img/".$row['image']);
+        $unlink = unlink("./img/".$row['image']);
         if($unlink){
             $res = $this->db->con->query("DELETE FROM blog WHERE id={$item_id}");
             if($res){

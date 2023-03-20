@@ -4,7 +4,7 @@ include('./functions.php');
 if (isset($_POST['set_category'])) {
     $name = $_POST['name'];
 
-    $uploads_dir = '../img';
+    $uploads_dir = './img';
     $tmp_name = $_FILES["image"]["tmp_name"];
     $img_name = $_FILES["image"]["name"];
     $fileType = strtolower(pathinfo($img_name, PATHINFO_EXTENSION));

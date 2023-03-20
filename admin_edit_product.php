@@ -3,11 +3,30 @@ ob_start();
 include('./functions.php');
 
 $row = $products->getProduct();
-print_r($row);
 $name = $row['name'];
 $category_id = $row['category_id'];
 $price = $row['price'];
 $image = $row['image'];
+
+if(isset($_POST['update_item'])){
+    $name = $_POST['name'];
+    $category_id = $_POST['category_id'];
+    $price = $_POST['price'];
+
+    if($_FILES['image']['name']){
+        $uploads_dir = '../img';
+        $tmp_name = $_FILES["image"]["tmp_name"];
+        $img_name = $_FILES["image"]["name"];
+        $fileType = strtolower(pathinfo($img_name,PATHINFO_EXTENSION));
+        $imgName = bin2hex(random_bytes(5));
+        $image = "$imgName.$fileType";
+        move_uploaded_file($tmp_name, "$uploads_dir/$image");;
+        $result = $products->updateProduct($name, $category_id, $price, $image);
+        unlink($row['image']);
+    }else{
+        $result = $products->updateProduct($name, $category_id, $price, $image);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +41,7 @@ $image = $row['image'];
 
 <body>
 
+    <?php if (isset($_SESSION['admin'])) { ?>
     <div class="container mt-3 mb-3 d-flex justify-content-between">
 
         <div class="form">
@@ -51,30 +71,7 @@ $image = $row['image'];
             </form>
         </div>
     </div>
+    <?php }else{header("Location: login.php");}?>
 
 </body>
 </html>
-
-
-<?php
-
-if(isset($_POST['update_item'])){
-    $name = $_POST['name'];
-    $category_id = $_POST['category_id'];
-    $price = $_POST['price'];
-
-    if($_FILES['image']['name']){
-        $uploads_dir = '../img';
-        $tmp_name = $_FILES["image"]["tmp_name"];
-        $img_name = $_FILES["image"]["name"];
-        $fileType = strtolower(pathinfo($img_name,PATHINFO_EXTENSION));
-        $imgName = bin2hex(random_bytes(5));
-        $image = "$imgName.$fileType";
-        move_uploaded_file($tmp_name, "$uploads_dir/$image");;
-        $result = $products->updateProduct($name, $category_id, $price, $image);
-        unlink($row['image']);
-    }else{
-        $result = $products->updateProduct($name, $category_id, $price, $image);
-    }
-}
-?>

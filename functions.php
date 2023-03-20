@@ -37,3 +37,8 @@ $blog = new Blog($db);
 
 // User object
 $user = new User($db);
+
+function logOut(){
+    session_destroy();
+    header("Location: index.php");
+}

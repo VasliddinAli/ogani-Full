@@ -34,11 +34,16 @@ if (isset($_POST['delete-category'])) {
 </head>
 
 <body>
-
+    
+    <?php if (isset($_SESSION['admin'])) { ?>
     <main class="admin">
         <header>
             <div class="header">
                 <div class="header-logo">
+                    <form method="post">
+                        <button class="btn btn-danger" name="logout" title="EXIT admin panel"><i class="fa-solid fa-arrow-left"></i></button>
+                        <?php if(isset($_POST['logout'])){logOut();}?>
+                    </form>
                     <img src="./img/logo.png" alt="">
                 </div>
                 <div class="header-contents">
@@ -77,7 +82,7 @@ if (isset($_POST['delete-category'])) {
                                     </form>
                                     <form method="get">
                                         <input type="hidden" value="<?= $row['id'] ?? 0 ?>" name="item_id">
-                                        <a href="./edit_category.php?id=<?= $row['id'] ?? 0 ?>" class="btn btn-warning">E</a>
+                                        <a href="./admin_edit_category.php?id=<?= $row['id'] ?? 0 ?>" class="btn btn-warning">E</a>
                                     </form>
                                 </div>
                             </td>
@@ -112,6 +117,7 @@ if (isset($_POST['delete-category'])) {
             </div>
         </div>
     </main>
+    <?php }else{header("Location: login.php");}?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 

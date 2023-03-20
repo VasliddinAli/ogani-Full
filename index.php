@@ -1,8 +1,6 @@
 <?php
 // header import
 include('./header.php');
-print_r($_SESSION['admin']);
-print_r($_SESSION['user']);
 ?>
 
 <main>

@@ -8,6 +8,27 @@ $row_title = $row['title'];
 $row_image = $row['image'];
 $row_category_id = $row['category_id'];
 $row_tags = $row['tags'];
+
+if (isset($_POST['update_item'])) {
+    $content = $_POST['content'];
+    $title = $_POST['title'];
+    $category_id = $_POST['category_id'];
+    $tags = $_POST['tags'];
+
+    if ($_FILES['image']['name']) {
+        $uploads_dir = '../img';
+        $tmp_name = $_FILES["image"]["tmp_name"];
+        $img_name = $_FILES["image"]["name"];
+        $fileType = strtolower(pathinfo($img_name, PATHINFO_EXTENSION));
+        $imgName = bin2hex(random_bytes(5));
+        $image = "$imgName.$fileType";
+        move_uploaded_file($tmp_name, "$uploads_dir/$image");;
+        $result = $blog->updateBlog($content, $title, $image, $category_id, $tags);
+        unlink($_SERVER['DOCUMENT_ROOT'].'/projects/template/img/'.$row_image);
+    }else {
+        $result = $blog->updateBlog($content, $title, $row_image, $row_category_id, $tags);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +43,7 @@ $row_tags = $row['tags'];
 
 <body>
 
+    <?php if (isset($_SESSION['admin'])) { ?>
     <div class="container mt-3 mb-3 w-50">
 
         <div class="form">
@@ -55,33 +77,8 @@ $row_tags = $row['tags'];
             </form>
         </div>
     </div>
+    <?php }else{header("Location: login.php");}?>
 
 </body>
 
 </html>
-
-
-<?php
-
-if (isset($_POST['update_item'])) {
-    $content = $_POST['content'];
-    $title = $_POST['title'];
-    $category_id = $_POST['category_id'];
-    $tags = $_POST['tags'];
-
-    if ($_FILES['image']['name']) {
-        $uploads_dir = '../img';
-        $tmp_name = $_FILES["image"]["tmp_name"];
-        $img_name = $_FILES["image"]["name"];
-        $fileType = strtolower(pathinfo($img_name, PATHINFO_EXTENSION));
-        $imgName = bin2hex(random_bytes(5));
-        $image = "$imgName.$fileType";
-        move_uploaded_file($tmp_name, "$uploads_dir/$image");;
-        $result = $blog->updateBlog($content, $title, $image, $category_id, $tags);
-        unlink($_SERVER['DOCUMENT_ROOT'].'/projects/template/img/'.$row_image);
-    }else {
-        $result = $blog->updateBlog($content, $title, $row_image, $row_category_id, $tags);
-    }
-}
-echo "</pre>";
-?>

@@ -1,6 +1,6 @@
 <?php
 ob_start();
-include('../functions.php');
+include('./functions.php');
 
 $row = $categories->getCategory();
 print_r($row);

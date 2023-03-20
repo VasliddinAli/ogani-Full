@@ -1,6 +1,31 @@
 <?php
-session_start();
 include('./functions.php');
+
+if (isset($_POST['sign'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $pass = $_POST['password'];
+    $password = md5($pass);
+    $user->setUser($name, $email, $password);
+    $_SESSION['user'] = array($name, $email, $password);
+}
+
+if(isset($_POST['login'])){
+    $email = $_POST['email'];
+    $pass = $_POST['password'];
+    $password = md5($pass);
+    foreach($user->getUsers() as $row){
+        if($row['email'] == $email && $row['password'] == $password){
+            if($row['role'] == 'admin'){
+                $_SESSION['admin'] = $row;
+                header("Location: admin.php");
+            }else{
+                $_SESSION['user'] = $row;
+                header("Location: index.php");
+            }
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -147,24 +172,16 @@ include('./functions.php');
             </form>
         </div>
 
-        <?php
-        if (isset($_POST['sign'])) {
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            $pass = $_POST['password'];
-            $password = md5($pass);
-            $user->setUser($name, $email, $password);
-            $_SESSION['user'] = array($name, $email, $password);
-        }
-        ?>
+        
         <div class="login">
-            <form>
+            <form method="post">
                 <label for="chk" aria-hidden="true">Login</label>
                 <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="pswd" placeholder="Password" required>
-                <button type="submit">Login</button>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit" name="login">Login</button>
             </form>
         </div>
+        
     </div>
 </body>
 

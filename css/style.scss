@@ -3375,7 +3375,13 @@ ol {
       &-logo{
         display: flex;
         align-items: center;
+        justify-content: space-between;
+      }
+      & .logout{
+        display: flex;
+        align-items: center;
         justify-content: center;
+        font-size: 14px;
       }
       &-contents{
         display: flex;

@@ -1,6 +1,6 @@
 <?php
 ob_start();
-include('../functions.php');
+include('./functions.php');
 
 $row = $products->getProduct();
 print_r($row);

@@ -1,6 +1,6 @@
 <?php
 ob_start();
-include('../functions.php');
+include('./functions.php');
 
 $row = $blog->getBlog();
 $row_content = $row['content'];

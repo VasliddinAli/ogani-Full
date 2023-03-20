@@ -113,7 +113,11 @@ include('./functions.php');
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="./login.php"><i class="fa fa-user"></i> Login</a>
+                                <?php if(!isset($_SESSION['user'])){?>
+                                    <a href="./login.php"><i class="fa fa-user"></i> Login</a>
+                                <?php }else{?>
+                                    <a href="./login.php"><i class="fa-solid fa-right-from-bracket"></i> LogOut</a>
+                                <?php }?>
                             </div>
                         </div>
                     </div>

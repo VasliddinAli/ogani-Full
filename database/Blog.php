@@ -55,7 +55,7 @@ class Blog{
         $item_id = $_GET['id'];
         $sql_update = "UPDATE `blog` SET `content` = '$content', `title` = '$title', `image` = '$image', `category_id` = '$category_id', `tags` = '$tags' WHERE `blog`.`id` = $item_id;";
         if ($this->db->con->query($sql_update) == TRUE) {
-            header("Location: blog.php");
+            header("Location: admin_blog.php");
         } else {
             echo "Error updating record: " . $this->db->con->error;
         }

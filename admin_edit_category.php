@@ -10,7 +10,7 @@ if(isset($_POST['update_item'])){
     $name = $_POST['name'];
     
     if($_FILES['image']['name']){
-        $uploads_dir = '../img';
+        $uploads_dir = './img';
         $tmp_name = $_FILES["image"]["tmp_name"];
         $img_name = $_FILES["image"]["name"];
         $fileType = strtolower(pathinfo($img_name,PATHINFO_EXTENSION));

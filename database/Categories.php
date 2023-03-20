@@ -55,7 +55,7 @@ class Categories{
         $item_id = $_GET['id'];
         $sql_update = "UPDATE `categories` SET `name` = '$name', `image` = '$image' WHERE `categories`.`id` = $item_id;";
         if ($this->db->con->query($sql_update) == TRUE) {
-            header("Location: categories.php");
+            header("Location: admin_categories.php");
         } else {
             echo "Error updating record: " . $this->db->con->error;
         }

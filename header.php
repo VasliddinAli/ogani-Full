@@ -1,6 +1,5 @@
 <?php
 include('./functions.php');
-ob_start();
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +58,6 @@ ob_start();
                 <li><a href="shop.php">Shop</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="pages_shop.php">Shop Details</a></li>
                         <li><a href="pages_cart.php">Shoping Cart</a></li>
                         <li><a href="pages_check.php">Check Out</a></li>
                         <li><a href="pages_blog.php">Blog Details</a></li>
@@ -136,7 +134,6 @@ ob_start();
                             <li><a href="shop.php">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="pages_shop.php">Shop Details</a></li>
                                     <li><a href="pages_cart.php">Shoping Cart</a></li>
                                     <li><a href="pages_check.php">Check Out</a></li>
                                     <li><a href="pages_blog.php">Blog Details</a></li>

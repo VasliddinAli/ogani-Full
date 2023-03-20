@@ -1,6 +1,7 @@
 <?php
 // header import
 include('./header.php');
+$product = $products->getProduct();
 ?>
 
 <main>
@@ -30,18 +31,18 @@ include('./header.php');
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
-                            <img class="product__details__pic__item--large" src="img/product/details/product-details-1.jpg" alt="">
+                            <img class="product__details__pic__item--large" src="./img/<?= $product['image']?>" alt="">
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
                             <?php foreach($products->getProducts() as $row){?>
-                                <img data-imgbigurl="./img/<?= $row['image']?>" src="./img/<?= $row['image']?>" alt="">
+                                <a href="./product_details.php?id=<?= $row['id']?>"><img data-imgbigurl="./img/<?= $row['image']?>" src="./img/<?= $row['image']?>" alt=""></a>
                             <?php }?>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
-                        <h3>Vetgetable’s Package</h3>
+                        <h3><?= $product['name']?></h3>
                         <div class="product__details__rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -50,7 +51,7 @@ include('./header.php');
                             <i class="fa fa-star-half-o"></i>
                             <span>(18 reviews)</span>
                         </div>
-                        <div class="product__details__price">$50.00</div>
+                        <div class="product__details__price">$<?= $product['price']?></div>
                         <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
                             vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
                             quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p>
@@ -84,17 +85,17 @@ include('./header.php');
                     <div class="product__details__tab">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab" aria-selected="true">Description</a>
+                                <a class="nav-link active" data-toggle="tab" href="#tabs1" role="tab" aria-selected="true">Description</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab" aria-selected="false">Information</a>
+                                <a class="nav-link" data-toggle="tab" href="#tabs2" role="tab" aria-selected="false">Information</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab" aria-selected="false">Reviews <span>(1)</span></a>
+                                <a class="nav-link" data-toggle="tab" href="#tabs3" role="tab" aria-selected="false">Reviews <span>(1)</span></a>
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                            <div class="tab-pane active" id="tabs1" role="tabpanel">
                                 <div class="product__details__tab__desc">
                                     <h6>Products Infomation</h6>
                                     <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
@@ -117,7 +118,7 @@ include('./header.php');
                                         sed sit amet dui. Proin eget tortor risus.</p>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="tabs-2" role="tabpanel">
+                            <div class="tab-pane" id="tabs2" role="tabpanel">
                                 <div class="product__details__tab__desc">
                                     <h6>Products Infomation</h6>
                                     <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
@@ -138,7 +139,7 @@ include('./header.php');
                                         nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</p>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="tabs-3" role="tabpanel">
+                            <div class="tab-pane" id="tabs3" role="tabpanel">
                                 <div class="product__details__tab__desc">
                                     <h6>Products Infomation</h6>
                                     <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
@@ -178,7 +179,7 @@ include('./header.php');
                             <div class="product__item__pic set-bg" data-setbg="./img/<?= $row['image']?>">
                                 <ul class="product__item__pic__hover">
                                     <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                    <li><a href="./product_details.php?id=<?= $row['id']?>"><i class="fa-solid fa-eye"></i></a></li>
                                     <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>

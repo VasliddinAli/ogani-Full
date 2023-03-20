@@ -116,7 +116,7 @@ include('./functions.php');
                                 <?php if(!isset($_SESSION['user'])){?>
                                     <a href="./login.php"><i class="fa fa-user"></i> Login</a>
                                 <?php }else{?>
-                                    <a href="./login.php"><i class="fa-solid fa-right-from-bracket"></i> LogOut</a>
+                                    <a href="./logout.php"><i class="fa-solid fa-right-from-bracket"></i> LogOut</a>
                                 <?php }?>
                             </div>
                         </div>

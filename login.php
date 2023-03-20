@@ -1,20 +1,20 @@
 <?php
 include('./functions.php');
 
+foreach($user->getUsers() as $row){
 if (isset($_POST['sign'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $pass = $_POST['password'];
     $password = md5($pass);
     $user->setUser($name, $email, $password);
-    $_SESSION['user'] = array($name, $email, $password);
+    $_SESSION['user'] = $row;
 }
 
 if(isset($_POST['login'])){
     $email = $_POST['email'];
     $pass = $_POST['password'];
     $password = md5($pass);
-    foreach($user->getUsers() as $row){
         if($row['email'] == $email && $row['password'] == $password){
             if($row['role'] == 'admin'){
                 $_SESSION['admin'] = $row;

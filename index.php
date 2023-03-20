@@ -28,7 +28,7 @@ include('./header.php');
                     <?php foreach ($categories->getCategories() as $row) { ?>
                         <div class="col-lg-3">
                             <div class="categories__item set-bg" data-setbg="./img/<?= $row['image'] ?>">
-                                <h5><a href="#"><?= $row['name'] ?></a></h5>
+                                <h5><a data-filter=".category_<?= $row['id'] ?>"><?= $row['name'] ?></a></h5>
                             </div>
                         </div>
                     <?php } ?>

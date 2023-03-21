@@ -1,7 +1,22 @@
 <?php
 // header import
 include('./header.php');
-$product = $products->getProduct();
+$item_id = $_GET['id'];
+$product = $products->getProduct($item_id)[0];
+
+
+// request method post
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (isset($_POST['top_sale_submit'])) {
+        if (isset($_SESSION['user'])) {
+            $cart->addToCart($_POST['user_id'], $_POST['item_id']);
+            header("Location: cart.php");
+        } else {
+            echo "<script>alert('You are not logged in yet. Please register and try again.');</script>";
+        }
+    }
+}
+$in_cart = $cart->getCartId($products->getProducts('cart'));
 ?>
 
 <main>
@@ -31,18 +46,18 @@ $product = $products->getProduct();
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
-                            <img class="product__details__pic__item--large" src="./img/<?= $product['image']?>" alt="">
+                            <img class="product__details__pic__item--large" src="./img/<?= $product['image'] ?>" alt="">
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
-                            <?php foreach($products->getProducts() as $row){?>
-                                <a href="./product_details.php?id=<?= $row['id']?>"><img data-imgbigurl="./img/<?= $row['image']?>" src="./img/<?= $row['image']?>" alt=""></a>
-                            <?php }?>
+                            <?php foreach ($products->getProducts() as $row) { ?>
+                                <a href="./product_details.php?id=<?= $row['id'] ?>"><img data-imgbigurl="./img/<?= $row['image'] ?>" src="./img/<?= $row['image'] ?>" alt=""></a>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
-                        <h3><?= $product['name']?></h3>
+                        <h3><?= $product['name'] ?></h3>
                         <div class="product__details__rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -51,7 +66,7 @@ $product = $products->getProduct();
                             <i class="fa fa-star-half-o"></i>
                             <span>(18 reviews)</span>
                         </div>
-                        <div class="product__details__price">$<?= $product['price']?></div>
+                        <div class="product__details__price">$<?= $product['price'] ?></div>
                         <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
                             vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
                             quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p>
@@ -171,23 +186,37 @@ $product = $products->getProduct();
                 </div>
             </div>
             <div class="row">
-                <?php foreach($products->getProducts() as $index => $row){ if($index < 4){?>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="./img/<?= $row['image']?>">
-                                <ul class="product__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="./product_details.php?id=<?= $row['id']?>"><i class="fa-solid fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <h6><a href="#"><?= $row['name']?></a></h6>
-                                <h5>$<?= $row['price']?></h5>
+                <?php foreach ($products->getProducts() as $index => $row) {
+                    if ($index < 4) { ?>
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="./img/<?= $row['image'] ?>">
+                                    <ul class="product__item__pic__hover">
+                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="./product_details.php?id=<?= $row['id'] ?>"><i class="fa-solid fa-eye"></i></a></li>
+                                        <li><a href="#">
+                                            <form method="post">
+                                                <input type="hidden" name="item_id" value="<?php echo $row['id'] ?? '1'; ?>">
+                                                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id'] ?>">
+                                                <?php
+                                                if (in_array($row['id'], $in_cart ?? [])) {
+                                                    echo '<button type="submit" disabled class="btn btn-success font-size-12"><i class="fa-solid fa-check"></i></button>';
+                                                } else {
+                                                    echo '<button type="submit" name="top_sale_submit" class="btn btn-warning font-size-12"><i class="fa fa-shopping-cart"></i></button>';
+                                                }
+                                                ?>
+                                            </form>
+                                        </a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="#"><?= $row['name'] ?></a></h6>
+                                    <h5>$<?= $row['price'] ?></h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <?php }}?>
+                <?php }
+                } ?>
             </div>
         </div>
     </section>

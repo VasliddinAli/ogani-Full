@@ -1,6 +1,18 @@
 <?php
 // header import
 include('./header.php');
+
+// request method post
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (isset($_POST['top_sale_submit'])) {
+        if (isset($_SESSION['user'])) {
+            $cart->addToCart($_POST['user_id'], $_POST['item_id']);
+        } else {
+            echo "<script>alert('You are not logged in yet. Please register and try again.');</script>";
+        }
+    }
+}
+$in_cart = $cart->getCartId($products->getProducts('cart'));
 ?>
 
 <main>
@@ -171,8 +183,20 @@ include('./header.php');
                                                 <div class="product__discount__percent">-20%</div>
                                                 <ul class="product__item__pic__hover">
                                                     <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                    <li><a href="./product_details.php?id=<?= $row['id']?>"><i class="fa-solid fa-eye"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                    <li><a href="./product_details.php?id=<?= $row['id'] ?>"><i class="fa-solid fa-eye"></i></a></li>
+                                                    <li><a href="#">
+                                                            <form method="post">
+                                                                <input type="hidden" name="item_id" value="<?php echo $row['id'] ?? '1'; ?>">
+                                                                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id'] ?>">
+                                                                <?php
+                                                                if (in_array($row['id'], $in_cart ?? [])) {
+                                                                    echo '<button type="submit" disabled class="btn btn-success font-size-12"><i class="fa-solid fa-check"></i></button>';
+                                                                } else {
+                                                                    echo '<button type="submit" name="top_sale_submit" class="btn btn-warning font-size-12"><i class="fa fa-shopping-cart"></i></button>';
+                                                                }
+                                                                ?>
+                                                            </form>
+                                                        </a></li>
                                                 </ul>
                                             </div>
                                             <div class="product__discount__item__text">
@@ -221,8 +245,20 @@ include('./header.php');
                                     <div class="product__item__pic set-bg" data-setbg="./img/<?= $row['image'] ?>">
                                         <ul class="product__item__pic__hover">
                                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                            <li><a href="./product_details.php?id=<?= $row['id']?>"><i class="fa-solid fa-eye"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="./product_details.php?id=<?= $row['id'] ?>"><i class="fa-solid fa-eye"></i></a></li>
+                                            <li><a href="#">
+                                                    <form method="post">
+                                                        <input type="hidden" name="item_id" value="<?php echo $row['id'] ?? '1'; ?>">
+                                                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id'] ?>">
+                                                        <?php
+                                                        if (in_array($row['id'], $in_cart ?? [])) {
+                                                            echo '<button type="submit" disabled class="btn btn-success font-size-12"><i class="fa-solid fa-check"></i></button>';
+                                                        } else {
+                                                            echo '<button type="submit" name="top_sale_submit" class="btn btn-warning font-size-12"><i class="fa fa-shopping-cart"></i></button>';
+                                                        }
+                                                        ?>
+                                                    </form>
+                                                </a></li>
                                         </ul>
                                     </div>
                                     <div class="product__item__text">

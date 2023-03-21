@@ -57,7 +57,7 @@ class Products{
 
 
     // get product using item id
-    public function getProduct($item_id = null, $table = 'products')
+    public function getProduct($item_id, $table = 'products')
     {
         if (isset($item_id)) {
             $result = $this->db->con->query("SELECT * FROM {$table} WHERE id={$item_id}");

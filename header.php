@@ -34,8 +34,8 @@ include('./functions.php');
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                <li><a href="#"><i class="fa fa-heart"></i> <span>0</span></a></li>
+                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span><?php echo count($products->getProducts('cart')); ?></span></a></li>
             </ul>
             <div class="header__cart__price">item: <span>$150.00</span></div>
         </div>
@@ -50,7 +50,11 @@ include('./functions.php');
                 </ul>
             </div>
             <div class="header__top__right__auth">
-                <a href="./login.php"><i class="fa fa-user"></i> Login</a>
+                <?php if (!isset($_SESSION['user'])) { ?>
+                    <a href="./login.php"><i class="fa fa-user"></i> Login</a>
+                <?php } else { ?>
+                    <a href="./logout.php"><i class="fa-solid fa-right-from-bracket"></i> LogOut</a>
+                <?php } ?>
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -114,11 +118,11 @@ include('./functions.php');
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                                <?php if(!isset($_SESSION['user'])){?>
+                                <?php if (!isset($_SESSION['user'])) { ?>
                                     <a href="./login.php"><i class="fa fa-user"></i> Login</a>
-                                <?php }else{?>
+                                <?php } else { ?>
                                     <a href="./logout.php"><i class="fa-solid fa-right-from-bracket"></i> LogOut</a>
-                                <?php }?>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -152,8 +156,15 @@ include('./functions.php');
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="cart.php"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="#"><i class="fa fa-heart"></i> <span>0</span></a></li>
+                            <li><a href="cart.php"><i class="fa fa-shopping-bag"></i> <span>
+                                        <?php
+                                        if (isset($_SESSION['user'])) {
+                                            echo count($products->getProducts('cart'));
+                                        } else {
+                                            echo 0;
+                                        }
+                                        ?></span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>

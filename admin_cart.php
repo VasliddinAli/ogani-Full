@@ -50,7 +50,7 @@ include('./functions.php');
                     <?php foreach ($cart->getCart() as $row) { ?>
                         <tr>
                             <th><?= $row['id'] ?></th>
-                            <td><img src="../<?= $row['image'] ?>"></td>
+                            <td><img src="./img/<?= $row['image'] ?>"></td>
                             <td><?= $row['name'] ?></td>
                             <td>$<?= $row['price'] ?></td>
                         </tr>

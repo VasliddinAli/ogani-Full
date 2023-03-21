@@ -68,4 +68,14 @@ class Products{
             echo "Error updating record: " . $this->db->con->error;
         }
     }
+
+    // addToCart
+    public function addToCart($item_id){
+        $sql = "INSERT INTO cart SELECT * FROM products WHERE id = {$item_id};";
+        $result = $this->db->con->query($sql);
+        if($result){
+            header("Location:" . $_SERVER['PHP_SELF']);
+        }
+        return $result;
+    }
 }

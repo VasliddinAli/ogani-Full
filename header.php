@@ -21,9 +21,9 @@ include('./functions.php');
 
 <body>
 
-    <div id="preloder">
+    <!-- <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> -->
 
 
     <div class="humberger__menu__overlay"></div>

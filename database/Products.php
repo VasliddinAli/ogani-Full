@@ -9,12 +9,19 @@ class Products{
         $this->db = $db;
     }
 
-    // get Products
-    public function getProducts(){
-        $result = $this->db->con->query("SELECT * FROM products");
-        if($result->num_rows > 0){
-            return $result;
+    // fetch product data using getData Method
+    public function getProducts($table = 'products')
+    {
+        $result = $this->db->con->query("SELECT * FROM {$table}");
+
+        $resultArray = array();
+
+        // fetch product data one by one
+        while ($item = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArray[] = $item;
         }
+
+        return $resultArray;
     }
     
     // get latest products
@@ -49,13 +56,21 @@ class Products{
     }
 
 
-    // get one product
-    public function getProduct(){
-        $item_id = $_GET['id'];
-        $sql = "SELECT * FROM products WHERE id=$item_id";
-        $result = $this->db->con->query($sql);
-        $row = $result->fetch_assoc();
-        return $row;
+    // get product using item id
+    public function getProduct($item_id = null, $table = 'products')
+    {
+        if (isset($item_id)) {
+            $result = $this->db->con->query("SELECT * FROM {$table} WHERE id={$item_id}");
+
+            $resultArray = array();
+
+            // fetch product data one by one
+            while ($item = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                $resultArray[] = $item;
+            }
+
+            return $resultArray;
+        }
     }
     
     // update product

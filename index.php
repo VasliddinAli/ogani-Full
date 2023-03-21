@@ -2,10 +2,16 @@
 // header import
 include('./header.php');
 
-if (isset($_POST['submit_item'])) {
-    $id = $_POST['id'];
-    $products->addToCart($id);
+
+// request method post
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (isset($_POST['top_sale_submit'])) {
+        // call method addToCart
+        $cart->addToCart($_POST['user_id'], $_POST['item_id']);
+    }
 }
+
+$in_cart = $cart->getCartId($products->getProducts('cart'));
 ?>
 
 <main>
@@ -68,11 +74,18 @@ if (isset($_POST['submit_item'])) {
                                     <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                     <li><a href="./product_details.php?id=<?= $row['id'] ?>"><i class="fa-solid fa-eye"></i></a></li>
                                     <li><a href="#">
-                                        <form method="post">
-                                            <input type="hidden" name="id" value="<?= $row['id']?>">
-                                            <button type="submit" name="submit_item"><i class="fa fa-shopping-cart"></i></button>
-                                        </form>
-                                    </a></li>
+                                            <form method="post">
+                                                <input type="hidden" name="item_id" value="<?php echo $row['id'] ?? '1'; ?>">
+                                                <input type="hidden" name="user_id" value="<?php echo 1; ?>">
+                                                <?php
+                                                if (in_array($row['id'], $in_cart ?? [])) {
+                                                    echo '<button type="submit" disabled class="btn btn-success font-size-12"><i class="fa-regular fa-cart-circle-check"></i></button>';
+                                                } else {
+                                                    echo '<button type="submit" name="top_sale_submit" class="btn btn-warning font-size-12"><i class="fa fa-shopping-cart"></i></button>';
+                                                }
+                                                ?>
+                                            </form>
+                                        </a></li>
                                 </ul>
                             </div>
                             <div class="featured__item__text">

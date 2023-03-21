@@ -14,6 +14,7 @@ include('./functions.php');
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="./css/slicknav.min.css">
@@ -58,7 +59,7 @@ include('./functions.php');
                 <li><a href="shop.php">Shop</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="pages_cart.php">Shoping Cart</a></li>
+                        <li><a href="cart.php">Shoping Cart</a></li>
                         <li><a href="pages_check.php">Check Out</a></li>
                         <li><a href="pages_blog.php">Blog Details</a></li>
                     </ul>
@@ -138,7 +139,7 @@ include('./functions.php');
                             <li><a href="shop.php">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="pages_cart.php">Shoping Cart</a></li>
+                                    <li><a href="cart.php">Shoping Cart</a></li>
                                     <li><a href="pages_check.php">Check Out</a></li>
                                     <li><a href="pages_blog.php">Blog Details</a></li>
                                 </ul>
@@ -152,7 +153,7 @@ include('./functions.php');
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="pages_cart.php"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="cart.php"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>

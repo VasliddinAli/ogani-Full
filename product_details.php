@@ -58,9 +58,7 @@ $product = $products->getProduct();
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <span class="dec qtybtn">-</span>
                                     <input type="text" value="1">
-                                    <span class="dec qtybtn">+</span>
                                 </div>
                             </div>
                         </div>

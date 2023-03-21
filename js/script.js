@@ -1,12 +1,11 @@
 "use strict";
-
-(function ($) {
+$(document).ready(function () {
   /*------------------
         Preloader
     --------------------*/
   $(window).on("load", function () {
     $(".loader").fadeOut();
-    $("#preloder").delay(200).fadeOut("slow");
+    $("#preloder").delay(100).fadeOut("slow");
 
     /*------------------
             Gallery filter
@@ -45,8 +44,8 @@
   });
 
   /*------------------
-		Navigation
-	--------------------*/
+    Navigation
+  --------------------*/
   $(".mobile-menu").slicknav({
     prependTo: "#mobile-menu-wrap",
     allowParentLinks: true,
@@ -155,34 +154,34 @@
   });
 
   /*-----------------------
-		Price Range Slider
-	------------------------ */
-  var rangeSlider = $(".price-range"),
-    minamount = $("#minamount"),
-    maxamount = $("#maxamount"),
-    minPrice = rangeSlider.data("min"),
-    maxPrice = rangeSlider.data("max");
-  rangeSlider.slider({
-    range: true,
-    min: minPrice,
-    max: maxPrice,
-    values: [minPrice, maxPrice],
-    slide: function (event, ui) {
-      minamount.val("$" + ui.values[0]);
-      maxamount.val("$" + ui.values[1]);
-    },
-  });
-  minamount.val("$" + rangeSlider.slider("values", 0));
-  maxamount.val("$" + rangeSlider.slider("values", 1));
+    Price Range Slider
+  ------------------------ */
+  // var rangeSlider = $(".price-range"),
+  //   minamount = $("#minamount"),
+  //   maxamount = $("#maxamount"),
+  //   minPrice = rangeSlider.data("min"),
+  //   maxPrice = rangeSlider.data("max");
+  // rangeSlider.slider({
+  //   range: true,
+  //   min: minPrice,
+  //   max: maxPrice,
+  //   values: [minPrice, maxPrice],
+  //   slide: function (ui) {
+  //     minamount.val("$" + ui.values[0]);
+  //     maxamount.val("$" + ui.values[1]);
+  //   },
+  // });
+  // minamount.val("$" + rangeSlider.slider("values", 0));
+  // maxamount.val("$" + rangeSlider.slider("values", 1));
 
   /*--------------------------
         Select
     ----------------------------*/
-  $("select").niceSelect();
+  // $("select").niceSelect();
 
   /*------------------
-		Single Product
-	--------------------*/
+    Single Product
+  --------------------*/
   $(".product__details__pic__slider img").on("click", function () {
     var imgurl = $(this).data("imgbigurl");
     var bigImg = $(".product__details__pic__item--large").attr("src");
@@ -193,25 +192,94 @@
     }
   });
 
-  /*-------------------
-		Quantity change
-	--------------------- */
-  var proQty = $(".pro-qty");
-  proQty.prepend('<span class="dec qtybtn">-</span>');
-  proQty.append('<span class="inc qtybtn">+</span>');
-  proQty.on("click", ".qtybtn", function () {
-    var $button = $(this);
-    var oldValue = $button.parent().find("input").val();
-    if ($button.hasClass("inc")) {
-      var newVal = parseFloat(oldValue) + 1;
-    } else {
-      // Don't allow decrementing below zero
-      if (oldValue > 0) {
-        var newVal = parseFloat(oldValue) - 1;
-      } else {
-        newVal = 0;
-      }
-    }
-    $button.parent().find("input").val(newVal);
-  });
-})(jQuery);
+  // /*-------------------
+  //   Quantity change
+  // --------------------- */
+  // var proQty = $(".pro-qty");
+  // proQty.prepend('<span class="dec qtybtn">-</span>');
+  // proQty.append('<span class="inc qtybtn">+</span>');
+  // proQty.on("click", ".qtybtn", function () {
+  //   var $button = $(this);
+  //   var oldValue = $button.parent().find("input").val();
+  //   if ($button.hasClass("inc")) {
+  //     var newVal = parseFloat(oldValue) + 1;
+  //   } else {
+  //     if (oldValue > 0) {
+  //       var newVal = parseFloat(oldValue) - 1;
+  //     } else {
+  //       newVal = 0;
+  //     }
+  //   }
+  //   $button.parent().find("input").val(newVal);
+  // });
+
+
+
+
+
+  // product qty section
+  let $qty_up = $(".qty .qty-up");
+  let $qty_down = $(".qty .qty-down");
+  let $deal_price = $("#deal-price");
+  // let $input = $(".qty .qty_input");
+
+  // click on qty up button
+  $qty_up.click(function (e) {
+    let $input = $(`.qty_input[data-id='${$(this).data("id")}']`);
+    let $price = $(`.product_price[data-id='${$(this).data("id")}']`);
+
+    // change product price using ajax call
+    $.ajax({
+      url: "../ajax.php",
+      type: "post",
+      data: { itemid: $(this).data("id") },
+      success: function (result) {
+        let obj = JSON.parse(result);
+        let item_price = obj[0]["item_price"];
+
+        if ($input.val() >= 1 && $input.val() <= 9) {
+          $input.val(function (i, oldval) {
+            return ++oldval;
+          });
+
+          // increase price of the product
+          $price.text(parseInt(item_price * $input.val()).toFixed(2));
+
+          // set subtotal price
+          let subtotal = parseInt($deal_price.text()) + parseInt(item_price);
+          $deal_price.text(subtotal.toFixed(2));
+        }
+      },
+    }); // closing ajax request
+  }); // closing qty up button
+
+  // click on qty down button
+  $qty_down.click(function (e) {
+    let $input = $(`.qty_input[data-id='${$(this).data("id")}']`);
+    let $price = $(`.product_price[data-id='${$(this).data("id")}']`);
+
+    // change product price using ajax call
+    $.ajax({
+      url: "../ajax.php",
+      type: "post",
+      data: { itemid: $(this).data("id") },
+      success: function (result) {
+        let obj = JSON.parse(result);
+        let item_price = obj[0]["item_price"];
+
+        if ($input.val() > 1 && $input.val() <= 10) {
+          $input.val(function (i, oldval) {
+            return --oldval;
+          });
+
+          // increase price of the product
+          $price.text(parseInt(item_price * $input.val()).toFixed(2));
+
+          // set subtotal price
+          let subtotal = parseInt($deal_price.text()) - parseInt(item_price);
+          $deal_price.text(subtotal.toFixed(2));
+        }
+      },
+    }); // closing ajax request
+  }); // closing qty down button
+});

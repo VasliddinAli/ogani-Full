@@ -13,6 +13,9 @@ require('database/Products.php');
 // require Cart Class
 require('database/Cart.php');
 
+// require Wishlist Class
+require('database/Wishlist.php');
+
 // require Blog Class
 require('database/Blog.php');
 
@@ -30,6 +33,9 @@ $products = new Products($db);
 
 // Cart object
 $cart = new Cart($db);
+
+// Cart object
+$wishlist = new Wishlist($db);
 
 // Blog object
 $blog = new Blog($db);

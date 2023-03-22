@@ -2,9 +2,9 @@
 // header import
 include('./header.php');
 
-if (isset($_POST['delete-cart-submit'])) {
-    if ($products->getProducts('cart')[0]['user_id'] == $_SESSION['user']['id']) {
-        $deletedrecord = $cart->deleteCart($_POST['id']);
+if (isset($_POST['delete-wishlist-submit'])) {
+    if ($products->getProducts('wishlist')[0]['user_id'] == $_SESSION['user']['id']) {
+        $deletedrecord = $wishlist->deleteCart($_POST['id']);
     }
 }
 ?>
@@ -28,7 +28,7 @@ if (isset($_POST['delete-cart-submit'])) {
     </section>
 
     <section class="shoping-cart spad">
-        <?php if (isset($_SESSION['user']) && $products->getProducts('cart')) { ?>
+        <?php if (isset($_SESSION['user']) && $products->getProducts('wishlist')) { ?>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -45,7 +45,7 @@ if (isset($_POST['delete-cart-submit'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    foreach ($products->getProducts('cart') as $item) :
+                                    foreach ($products->getProducts('wishlist') as $item) :
                                         if ($item['user_id'] == $_SESSION['user']['id']) {
                                             $cart = $products->getProduct($item['item_id']);
                                             $subTotal[] = array_map(function ($item) {
@@ -70,7 +70,7 @@ if (isset($_POST['delete-cart-submit'])) {
                                                     <td class="shoping__cart__total">
                                                         <form method="post">
                                                             <input type="hidden" value="<?php echo $item['id'] ?? 0; ?>" name="id">
-                                                            <button type="submit" name="delete-cart-submit" class="btn font-baloo text-danger px-3 border-right">Delete</button>
+                                                            <button type="submit" name="delete-wishlist-submit" class="btn font-baloo text-danger px-3 border-right">Delete</button>
                                                         </form>
                                                     </td>
                                                 </tr>
@@ -126,7 +126,7 @@ if (isset($_POST['delete-cart-submit'])) {
                 </div>
             </div>
         <?php } else {
-            echo "<h3 class='text-center'>Cart is empty yet :(</h3>";
+            echo "<h3 class='text-center'>Wishlist is empty yet :(</h3>";
         } ?>
     </section>
 </main>

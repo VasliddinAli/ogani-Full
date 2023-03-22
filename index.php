@@ -12,7 +12,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
     }
 }
-$in_cart = $cart->getCartId($products->getProducts('cart'));
+$in_cart = $wishlist->getCartId($products->getProducts('wishlist'));
+
+// request method post
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (isset($_POST['add_wishlist'])) {
+        if (isset($_SESSION['user'])) {
+            $wishlist->addToWishlist($_POST['wish_user_id'], $_POST['wish_item_id']);
+        } else {
+            echo "<script>alert('You are not logged in yet. Please register and try again.');</script>";
+        }
+    }
+}
+$in_wishlist = $wishlist->getCartId($products->getProducts('wishlist'));
 
 
 
@@ -76,7 +88,19 @@ $in_cart = $cart->getCartId($products->getProducts('cart'));
                         <div class="featured__item">
                             <div class="featured__item__pic set-bg" data-setbg="./img/<?= $row['image'] ?>">
                                 <ul class="featured__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                    <li><a href="#">
+                                            <form method="post">
+                                                <input type="hidden" name="wish_user_id" value="<?php echo $row['id'] ?? '1'; ?>">
+                                                <input type="hidden" name="wish_item_id" value="<?php echo $_SESSION['user']['id'] ?>">
+                                                <?php
+                                                if (isset($_SESSION['user']) && in_array($row['id'], $in_wishlist ?? [])) {
+                                                    echo '<button type="submit" disabled class="btn btn-success font-size-12"><i class="fa-solid fa-check"></i></button>';
+                                                } else {
+                                                    echo '<button type="submit" name="add_wishlist" class="btn btn-warning font-size-12"><i class="fa fa-heart"></i></button>';
+                                                }
+                                                ?>
+                                            </form>
+                                        </a></li>
                                     <li><a href="./product_details.php?id=<?= $row['id'] ?>"><i class="fa-solid fa-eye"></i></a></li>
                                     <li><a href="#">
                                             <form method="post">

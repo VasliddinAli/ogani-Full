@@ -21,10 +21,10 @@ include('./functions.php');
 </head>
 
 <body>
-
+<!-- 
     <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> -->
 
 
     <div class="humberger__menu__overlay"></div>
@@ -35,7 +35,7 @@ include('./functions.php');
         <div class="humberger__menu__cart">
             <ul>
                 <li><a href="./wishlist.php"><i class="fa fa-heart"></i> <span><?php if (isset($_SESSION['user'])) {
-                                                                                    echo count($products->getProducts('cart'));
+                                                                                    echo count($products->getProducts('wishlist'));
                                                                                 } else {
                                                                                     echo 0;
                                                                                 } ?></span></a></li>
@@ -57,19 +57,32 @@ include('./functions.php');
                     <li><a href="#">English</a></li>
                 </ul>
             </div>
-            <div class="header__top__right__auth">
-                <?php if (!isset($_SESSION['user'])) { ?>
-                    <a href="./login.php"><i class="fa fa-user"></i> Login</a>
-                <?php } else { ?>
-                    <a href="./logout.php"><i class="fa-solid fa-right-from-bracket"></i> LogOut</a>
-                <?php } ?>
+            <div class="dropdown header__top__right__auth">
+                <?php if (isset($_SESSION['user'])) { ?>
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user"></i> Your profile
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
+                        <?php if (isset($_SESSION['user'])) { ?>
+                            <li><a class="dropdown-item" href="#">Name: <strong><?php echo $_SESSION['user']['name']; ?></strong></a></li>
+                            <li><a class="dropdown-item" href="#">Email: <strong><?php echo $_SESSION['user']['email']; ?></strong></a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a style="color: #ff0000;" class="dropdown-item" href="./logout.php"><i class="fa-solid fa-right-from-bracket"></i> LogOut</a></li>
+                        <?php } ?>
+                    </ul>
+                <?php } else {
+                    echo '<a href="./login.php"><i class="fa fa-user"></i> Login</a>';
+                } ?>
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="shop.php">Shop</a></li>
-                <li><a href="pages.html">Pages</a>
+                <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
                         <li><a href="pages_check.php">Check Out</a></li>
                     </ul>
@@ -123,12 +136,25 @@ include('./functions.php');
                                     <li><a href="#">English</a></li>
                                 </ul>
                             </div>
-                            <div class="header__top__right__auth">
-                                <?php if (!isset($_SESSION['user'])) { ?>
-                                    <a href="./login.php"><i class="fa fa-user"></i> Login</a>
-                                <?php } else { ?>
-                                    <a href="./logout.php"><i class="fa-solid fa-right-from-bracket"></i> LogOut</a>
-                                <?php } ?>
+                            <div class="dropdown header__top__right__auth">
+                                <?php if (isset($_SESSION['user'])) { ?>
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-regular fa-circle-user"></i> Your profile
+                                    </a>
+
+                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
+                                        <?php if (isset($_SESSION['user'])) { ?>
+                                            <li><a class="dropdown-item" href="#">Name: <strong><?php echo $_SESSION['user']['name']; ?></strong></a></li>
+                                            <li><a class="dropdown-item" href="#">Email: <strong><?php echo $_SESSION['user']['email']; ?></strong></a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a style="color: #ff0000;" class="dropdown-item" href="./logout.php"><i class="fa-solid fa-right-from-bracket"></i> LogOut</a></li>
+                                        <?php } ?>
+                                    </ul>
+                                <?php } else {
+                                    echo '<a href="./login.php"><i class="fa fa-user"></i> Login</a>';
+                                } ?>
                             </div>
                         </div>
                     </div>
@@ -160,11 +186,13 @@ include('./functions.php');
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="./wishlist.php"><i class="fa fa-heart"></i> <span><?php if (isset($_SESSION['user'])) {
-                                                                                                echo count($products->getProducts('cart'));
-                                                                                            } else {
-                                                                                                echo 0;
-                                                                                            } ?></span></a></li>
+                            <li><a href="./wishlist.php"><i class="fa fa-heart"></i> <span>
+                                        <?php
+                                        if (isset($_SESSION['user'])) {
+                                            echo count($products->getProducts('wishlist'));
+                                        } else {
+                                            echo 0;
+                                        } ?></span></a></li>
                             <li><a href="cart.php"><i class="fa fa-shopping-bag"></i> <span>
                                         <?php
                                         if (isset($_SESSION['user'])) {

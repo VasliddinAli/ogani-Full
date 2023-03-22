@@ -93,4 +93,14 @@ class Products{
         }
         return $result;
     }
+
+    // addToWishlist
+    public function addToWishlist($item_id){
+        $sql = "INSERT INTO wishlist SELECT * FROM products WHERE id = {$item_id};";
+        $result = $this->db->con->query($sql);
+        if($result){
+            header("Location:" . $_SERVER['PHP_SELF']);
+        }
+        return $result;
+    }
 }

@@ -1,32 +1,44 @@
 <?php
 include('./functions.php');
 
-foreach($user->getUsers() as $row){
+
+$error = "";
 if (isset($_POST['sign'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $pass = $_POST['password'];
     $password = md5($pass);
-    $user->setUser($name, $email, $password);
-    $_SESSION['user'] = $row;
+    $row = $user->getUser($email);
+    if ($email != $row['email']) {
+        $user->setUser($name, $email, $password);
+        $_SESSION['user'] = $row;
+    } else {
+        $error = "This email is already use";
+    }
 }
 
-if(isset($_POST['login'])){
-    $email = $_POST['email'];
-    $pass = $_POST['password'];
-    $password = md5($pass);
-        if($row['email'] == $email && $row['password'] == $password){
-            if($row['role'] == 'admin'){
-                $_SESSION['admin'] = $row;
+
+$result = $user->getUsers();
+if (isset($_POST['login'])) {
+    foreach ($result as $user) {
+        $email = $_POST['email'];
+        $pass = $_POST['password'];
+        $password = md5($pass);
+        if ($user['email'] == $email && $user['password'] == $password) {
+            if ($user['role'] == 'admin') {
+                $_SESSION['admin'] = $user;
                 header("Location: admin.php");
-            }else{
-                $_SESSION['user'] = $row;
+            } else {
+                $_SESSION['user'] = $user;
                 header("Location: index.php");
             }
+        } else {
+            $error = "Email or password incorrect. Please, try again :(";
         }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,154 +46,120 @@ if(isset($_POST['login'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>Login | Registration</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Jost', sans-serif;
-            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            background-color: #aaa;
         }
 
-        .main {
-            width: 350px;
-            height: 500px;
-            background: red;
-            overflow: hidden;
-            background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
-            border-radius: 10px;
-            box-shadow: 5px 20px 50px #000;
+        .card {
+            width: 400px;
+            border: none;
         }
 
-        @media(max-width:500px) {
-            .main {
-                width: 300px;
-            }
+        .btr {
+            border-top-right-radius: 5px !important;
         }
 
-        #chk {
-            display: none;
+        .btl {
+            border-top-left-radius: 5px !important;
         }
 
-        .signup {
-            position: relative;
+        .btn-dark {
+            color: #fff;
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        .btn-dark:hover {
+            color: #fff;
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        .nav-pills {
+            display: table !important;
             width: 100%;
-            height: 100%;
         }
 
-        .signup label {
-            margin-bottom: 10px;
+        .nav-pills .nav-link {
+            border-radius: 0px;
+            border-bottom: 1px solid #0d6efd40;
         }
 
-        label {
-            color: #fff;
-            font-size: 2.3em;
-            justify-content: center;
-            display: flex;
-            margin: 60px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: .5s ease-in-out;
+        .nav-item {
+            display: table-cell;
+            background: #0d6efd2e;
         }
 
-        input {
-            width: 60%;
-            height: 20px;
-            background: #e0dede;
-            justify-content: center;
-            display: flex;
-            margin: 20px auto;
+        .form {
             padding: 10px;
-            border: none;
-            outline: none;
-            border-radius: 5px;
+            height: 300px;
         }
 
-        button {
-            width: 66%;
-            height: 40px;
-            margin: 10px auto;
-            justify-content: center;
-            display: block;
-            color: #fff;
-            background: #573b8a;
-            font-size: 1em;
-            font-weight: bold;
+        .form input {
+            margin-bottom: 12px;
+            border-radius: 3px;
+        }
+
+        .form input:focus {
+            box-shadow: none;
+        }
+
+        .form button {
             margin-top: 20px;
-            outline: none;
-            border: none;
-            border-radius: 5px;
-            transition: .2s ease-in;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #6d44b8;
-        }
-
-        .login {
-            height: 460px;
-            background: #eee;
-            border-radius: 60% / 10%;
-            transform: translateY(-180px);
-            transition: .8s ease-in-out;
-        }
-
-        .login label {
-            color: #573b8a;
-            transform: scale(.6);
-        }
-
-        #chk:checked~.login {
-            transform: translateY(-520px);
-        }
-
-        #chk:checked~.login label {
-            transform: scale(1);
-        }
-
-        #chk:checked~.signup label {
-            transform: scale(.7) translateY(-30px);
         }
 
         .gotohome {
-            position: absolute;
-            color: #fff;
+            text-align: center;
             text-decoration: none;
-            top: 30px;
+            color: #000;
             font-size: 20px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
         }
     </style>
 </head>
 
 <body>
     <a href="index.php" class="gotohome">Go to home</a>
-    <div class="main">
-        <input type="checkbox" id="chk" aria-hidden="true">
-        <div class="signup">
-            <form method="post">
-                <label for="chk" aria-hidden="true">Sign up</label>
-                <input type="text" name="name" placeholder="User name" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <button type="submit" name="sign">Sign up</button>
-            </form>
-        </div>
 
-        
-        <div class="login">
-            <form method="post">
-                <label for="chk" aria-hidden="true">Login</label>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <button type="submit" name="login">Login</button>
-            </form>
+    <div class="d-flex justify-content-center align-items-center mt-5">
+        <div class="card">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item text-center">
+                    <a class="nav-link active btl" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Login</a>
+                </li>
+                <li class="nav-item text-center">
+                    <a class="nav-link btr" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Signup</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <form method="post" class="form px-4 pt-5">
+                        <input type="email" name="email" class="form-control" placeholder="Email or Phone" required>
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                        <button type="submit" class="btn btn-dark btn-block" name="login">Login</button>
+                    </form>
+                </div>
+
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <form method="post" class="form px-4">
+                        <input type="text" name="name" class="form-control" placeholder="Name" required>
+                        <input type="email" name="email" class="form-control" placeholder="Email" required>
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                        <button type="submit required" class="btn btn-dark btn-block" name="sign">Signup</button>
+                    </form>
+                </div>
+                <p class="text-center"><?php echo $error; ?></p>
+            </div>
         </div>
-        
     </div>
 </body>
 

@@ -2,11 +2,14 @@
 ob_start();
 include('./functions.php');
 
-$row = $products->getProduct();
-$name = $row['name'];
-$category_id = $row['category_id'];
-$price = $row['price'];
-$image = $row['image'];
+$item_id = $_GET['id'];
+
+$row = $products->getProduct($item_id)[0];
+
+$item_name = $row['name'];
+$item_category_id = $row['category_id'];
+$item_price = $row['price'];
+$item_image = $row['image'];
 
 if(isset($_POST['update_item'])){
     $name = $_POST['name'];
@@ -43,7 +46,6 @@ if(isset($_POST['update_item'])){
 
     <?php if (isset($_SESSION['admin'])) { ?>
     <div class="container mt-3 mb-3 d-flex justify-content-between">
-
         <div class="form">
             <form method="post" enctype="multipart/form-data">
                 <div class="mb-3">
@@ -52,7 +54,7 @@ if(isset($_POST['update_item'])){
                 </div>
                 <div class="mb-3">
                     <label for="name" class="form-label">Product name</label>
-                    <input type="text" value="<?= $name?>" name="name" class="form-control" id="name" required>
+                    <input type="text" value="<?= $item_name?>" name="name" class="form-control" id="name" required>
                 </div>
                 <div class="mb-3">
                     <label>Select category</label>
@@ -65,7 +67,7 @@ if(isset($_POST['update_item'])){
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label">Price</label>
-                    <input type="number" value="<?= $price?>" name="price" class="form-control" id="price" required>
+                    <input type="number" value="<?= $item_price?>" name="price" class="form-control" id="price" required>
                 </div>
                 <button type="submit" name="update_item" class="btn btn-primary">Update</button>
             </form>

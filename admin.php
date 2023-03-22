@@ -57,7 +57,6 @@ if (isset($_POST['delete-product'])) {
                         <a href="./admin.php" class="active">Products</a>
                         <a href="./admin_categories.php">Categories</a>
                         <a href="./admin_blog.php">Blog</a>
-                        <a href="./admin_cart.php">Cart</a>
                         <a href="./admin_users.php">Users</a>
                     </div>
                 </div>

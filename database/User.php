@@ -25,4 +25,12 @@ class User{
             return $result;
         }
     }
+
+    // get one user by email
+    public function getUser($users_email){
+        $result = $this->db->con->query("SELECT * FROM user WHERE `email` = '". $users_email ."' LIMIT 1");
+        if($result->num_rows > 0){
+            return $result->fetch_assoc();
+        }
+    }
 }

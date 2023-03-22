@@ -22,9 +22,9 @@ include('./functions.php');
 
 <body>
 
-    <!-- <div id="preloder">
+    <div id="preloder">
         <div class="loader"></div>
-    </div> -->
+    </div>
 
 
     <div class="humberger__menu__overlay"></div>
@@ -34,8 +34,16 @@ include('./functions.php');
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                <li><a href="#"><i class="fa fa-heart"></i> <span>0</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span><?php echo count($products->getProducts('cart')); ?></span></a></li>
+                <li><a href="./wishlist.php"><i class="fa fa-heart"></i> <span><?php if (isset($_SESSION['user'])) {
+                                                                                    echo count($products->getProducts('cart'));
+                                                                                } else {
+                                                                                    echo 0;
+                                                                                } ?></span></a></li>
+                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span><?php if (isset($_SESSION['user'])) {
+                                                                                echo count($products->getProducts('cart'));
+                                                                            } else {
+                                                                                echo 0;
+                                                                            } ?></span></a></li>
             </ul>
             <div class="header__cart__price">item: <span>$150.00</span></div>
         </div>
@@ -61,11 +69,9 @@ include('./functions.php');
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="shop.php">Shop</a></li>
-                <li><a href="#">Pages</a>
+                <li><a href="pages.html">Pages</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="cart.php">Shoping Cart</a></li>
                         <li><a href="pages_check.php">Check Out</a></li>
-                        <li><a href="pages_blog.php">Blog Details</a></li>
                     </ul>
                 </li>
                 <li><a href="blog.php">Blog</a></li>
@@ -143,9 +149,7 @@ include('./functions.php');
                             <li><a href="shop.php">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="cart.php">Shoping Cart</a></li>
                                     <li><a href="pages_check.php">Check Out</a></li>
-                                    <li><a href="pages_blog.php">Blog Details</a></li>
                                 </ul>
                             </li>
                             <li><a href="blog.php">Blog</a></li>
@@ -156,7 +160,11 @@ include('./functions.php');
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>0</span></a></li>
+                            <li><a href="./wishlist.php"><i class="fa fa-heart"></i> <span><?php if (isset($_SESSION['user'])) {
+                                                                                                echo count($products->getProducts('cart'));
+                                                                                            } else {
+                                                                                                echo 0;
+                                                                                            } ?></span></a></li>
                             <li><a href="cart.php"><i class="fa fa-shopping-bag"></i> <span>
                                         <?php
                                         if (isset($_SESSION['user'])) {

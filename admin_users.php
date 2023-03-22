@@ -32,7 +32,6 @@ include('./functions.php');
                     <a href="./admin.php">Products</a>
                     <a href="./admin_categories.php">Categories</a>
                     <a href="./admin_blog.php">Blog</a>
-                    <a href="./admin_cart.php">Cart</a>
                     <a href="./admin_users.php" class="active">Users</a>
                 </div>
             </div>
@@ -48,14 +47,13 @@ include('./functions.php');
                     </tr>
                 </tbody>
                 <tbody>
-                    <?php foreach ($user->getUsers() as $row) { ?>
+                    <?php $row = $user->getUsers(); ?>
                         <tr>
                             <td><?= $row['id'] ?></td>
                             <td><img src="./img/users/<?= $row['image'] ?>"></td>
                             <td><?= $row['name'] ?></td>
                             <td><?= $row['email'] ?></td>
                         </tr>
-                    <?php } ?>
                 </tbody>
             </table>
         </section>

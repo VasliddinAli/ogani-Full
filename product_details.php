@@ -199,7 +199,7 @@ $in_cart = $cart->getCartId($products->getProducts('cart'));
                                                 <input type="hidden" name="item_id" value="<?php echo $row['id'] ?? '1'; ?>">
                                                 <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id'] ?>">
                                                 <?php
-                                                if (in_array($row['id'], $in_cart ?? [])) {
+                                                if (isset($_SESSION['user']) && in_array($row['id'], $in_cart ?? [])) {
                                                     echo '<button type="submit" disabled class="btn btn-success font-size-12"><i class="fa-solid fa-check"></i></button>';
                                                 } else {
                                                     echo '<button type="submit" name="top_sale_submit" class="btn btn-warning font-size-12"><i class="fa fa-shopping-cart"></i></button>';

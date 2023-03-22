@@ -72,14 +72,13 @@ class Cart
     }
 
     // calculate sub total
-    public function getSum($arr){
-        if(isset($arr)){
-            $sum = 0;
-            foreach ($arr as $item){
-                $sum += floatval($item[0]);
-            }
-            return $sum;
+    public function getSum($arr)
+    {
+        $sum = 0;
+        foreach ($arr as $item) {
+            $sum += floatval($item[0]);
         }
+        return $sum;
     }
 
     // get item_id of shopping cart list

@@ -192,36 +192,11 @@ $(document).ready(function () {
     }
   });
 
-  // /*-------------------
-  //   Quantity change
-  // --------------------- */
-  // var proQty = $(".pro-qty");
-  // proQty.prepend('<span class="dec qtybtn">-</span>');
-  // proQty.append('<span class="inc qtybtn">+</span>');
-  // proQty.on("click", ".qtybtn", function () {
-  //   var $button = $(this);
-  //   var oldValue = $button.parent().find("input").val();
-  //   if ($button.hasClass("inc")) {
-  //     var newVal = parseFloat(oldValue) + 1;
-  //   } else {
-  //     if (oldValue > 0) {
-  //       var newVal = parseFloat(oldValue) - 1;
-  //     } else {
-  //       newVal = 0;
-  //     }
-  //   }
-  //   $button.parent().find("input").val(newVal);
-  // });
-
-
-
-
 
   // product qty section
-  let $qty_up = $(".qty .qty-up");
-  let $qty_down = $(".qty .qty-down");
+  let $qty_up = $(".qty_up");
+  let $qty_down = $(".qty_down");
   let $deal_price = $("#deal-price");
-  // let $input = $(".qty .qty_input");
 
   // click on qty up button
   $qty_up.click(function (e) {
@@ -230,7 +205,7 @@ $(document).ready(function () {
 
     // change product price using ajax call
     $.ajax({
-      url: "../ajax.php",
+      url: "./ajax.php",
       type: "post",
       data: { itemid: $(this).data("id") },
       success: function (result) {
@@ -260,7 +235,7 @@ $(document).ready(function () {
 
     // change product price using ajax call
     $.ajax({
-      url: "../ajax.php",
+      url: "./ajax.php",
       type: "post",
       data: { itemid: $(this).data("id") },
       success: function (result) {

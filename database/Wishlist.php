@@ -12,7 +12,7 @@ class Wishlist
     }
 
     // get cart items
-    public function getCart()
+    public function getWishlist()
     {
         $result = $this->db->con->query("SELECT * FROM wishlist");
         if ($result->num_rows > 0) {
@@ -20,47 +20,21 @@ class Wishlist
         }
     }
 
-    // insert into cart table
-    public function insertIntoCart($params = null, $table = "wishlist")
-    {
-        if ($this->db->con != null) {
-            if ($params != null) {
-                // "Insert into cart(user_id) values(0)"
-                // get table columns
-                $columns = implode(',', array_keys($params));
-
-                $values = implode(',', array_values($params));
-
-                // create sql query
-                $query_string = sprintf("INSERT INTO %s(%s) VALUES (%s)", $table, $columns, $values);
-
-                // execute query
-                $result = $this->db->con->query($query_string);
-                return $result;
-            }
-        }
-    }
-
     // to get user_id and item_id and insert into cart table
     public  function addToWishlist($userid, $itemid)
     {
         if (isset($userid) && isset($itemid)) {
-            $params = array(
-                "user_id" => $userid,
-                "item_id" => $itemid
-            );
-
-            // insert data into cart
-            $result = $this->insertIntoCart($params);
-            if ($result) {
-                // Reload Page
-                header("Location: " . $_SERVER['PHP_SELF']);
+            $query_string = "INSERT INTO wishlist (user_id, item_id) VALUES ('$itemid', '$userid')";
+            $result = $this->db->con->query($query_string);
+            if($result){
+                header("Location:" . $_SERVER['PHP_SELF']);
             }
+            return $result;
         }
     }
 
     // delete cart item using cart item id
-    public function deleteCart($item_id = null, $table = 'wishlist')
+    public function deleteWishlist($item_id = null, $table = 'wishlist')
     {
         if ($item_id != null) {
             $result = $this->db->con->query("DELETE FROM {$table} WHERE item_id={$item_id}");
@@ -71,18 +45,8 @@ class Wishlist
         }
     }
 
-    // calculate sub total
-    public function getSum($arr)
-    {
-        $sum = 0;
-        foreach ($arr as $item) {
-            $sum += floatval($item[0]);
-        }
-        return $sum;
-    }
-
     // get item_id of shopping cart list
-    public function getCartId($cartArray = null, $key = 'item_id')
+    public function getWishlistId($cartArray = null, $key = 'item_id')
     {
         if ($cartArray != null) {
             $cart_id = array_map(function ($value) use ($key) {

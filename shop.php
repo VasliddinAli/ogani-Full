@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (isset($_SESSION['user'])) {
             $cart->addToCart($_POST['user_id'], $_POST['item_id']);
         } else {
-            echo "<script>alert('You are not logged in yet. Please register and try again.');</script>";
+            header("Location: login.php");
         }
     }
 }
@@ -18,7 +18,7 @@ if (isset($_POST['add_wishlist'])) {
     if (isset($_SESSION['user'])) {
         $wishlist->addToWishlist($_POST['wish_item_id'], $_POST['wish_user_id']);
     } else {
-        echo "<script>alert('You are not logged in yet. Please register and try again.');</script>";
+        header("Location: login.php");
     }
 }
 $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));

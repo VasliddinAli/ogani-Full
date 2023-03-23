@@ -90,30 +90,32 @@ $row = $blog->getBlog();
                 </div>
                 <div class="col-lg-8 col-md-7 order-md-1 order-1">
                     <div class="blog__details__text">
-                        <img src="./img/<?= $row['image']?>" alt="">
-                        <h3><?= $row['content']?></h3>
-                        <p><?= $row['title']?></p>
+                        <img src="./img/<?= $row['image'] ?>" alt="">
+                        <h3><?= $row['content'] ?></h3>
+                        <p><?= $row['title'] ?></p>
                     </div>
                     <div class="blog__details__content">
                         <div class="row">
-                            <?php foreach($user->getUsers() as $a){ if($a['role'] == 'admin'){?>
-                            <div class="col-lg-6">
-                                <div class="blog__details__author">
-                                    <div class="blog__details__author__pic">
-                                        <img src="./img/users/<?= $a['image']?>">
+                            <?php foreach ($user->getUsers() as $a) {
+                                if ($a['role'] == 'admin') { ?>
+                                    <div class="col-lg-6">
+                                        <div class="blog__details__author">
+                                            <div class="blog__details__author__pic">
+                                                <img src="./img/users/<?= $a['image'] ?>">
+                                            </div>
+                                            <div class="blog__details__author__text">
+                                                <h6><?= $a['name'] ?></h6>
+                                                <span>Admin</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="blog__details__author__text">
-                                        <h6><?= $a['name']?></h6>
-                                        <span>Admin</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php }}?>
+                            <?php }
+                            } ?>
                             <div class="col-lg-6">
                                 <div class="blog__details__widget">
                                     <ul>
-                                        <li><span>Categories:</span> <?= $row['category_id']?></li>
-                                        <li><span>Tags:</span> <?= $row['tags']?></li>
+                                        <li><span>Categories:</span> <?= $row['category_id'] ?></li>
+                                        <li><span>Tags:</span> <?= $row['tags'] ?></li>
                                     </ul>
                                     <div class="blog__details__social">
                                         <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
@@ -132,61 +134,40 @@ $row = $blog->getBlog();
     </section>
 
 
-    <section class="related-blog spad">
+
+    <section class="from-blog spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="section-title related-blog-title">
+                    <div class="section-title from-blog__title">
                         <h2>Post You May Like</h2>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="img/blog/blog-1.jpg" alt="">
+                <?php
+                $items = $blog->getBlogs();
+                $a = 0;
+                foreach ($items as $row) {
+                    $a++;
+                    if ($a > 1) { ?>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <div class="blog__item">
+                                <div class="blog__item__pic">
+                                    <img src="img/<?= $row['image'] ?>" alt="">
+                                </div>
+                                <div class="blog__item__text">
+                                    <ul>
+                                        <li><i class="fa-regular fa-calendar"></i> <?= $row['dateTime'] ?></li>
+                                        <li><i class="fa-regular fa-comment"></i> 5</li>
+                                    </ul>
+                                    <h5><a href="blog_details.php?id=<?= $row['id'] ?>"><?= $row['content'] ?></a></h5>
+                                    <p><?= substr($row['title'], 0, 85); ?>...</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="blog__item__text">
-                            <ul>
-                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                <li><i class="fa fa-comment-o"></i> 5</li>
-                            </ul>
-                            <h5><a href="#">Cooking tips make cooking simple</a></h5>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="img/blog/blog-2.jpg" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <ul>
-                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                <li><i class="fa fa-comment-o"></i> 5</li>
-                            </ul>
-                            <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="img/blog/blog-3.jpg" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <ul>
-                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                <li><i class="fa fa-comment-o"></i> 5</li>
-                            </ul>
-                            <h5><a href="#">Visit the clean farm in the US</a></h5>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                        </div>
-                    </div>
-                </div>
+                <?php }
+                } ?>
             </div>
         </div>
     </section>

@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (isset($_SESSION['user'])) {
             $cart->addToCart($_POST['user_id'], $_POST['item_id']);
         } else {
-            echo "<script>alert('You are not logged in yet. Please register and try again.');</script>";
+            header("Location: login.php");
         }
     };
 }
@@ -18,7 +18,7 @@ if (isset($_POST['add_wishlist'])) {
     if (isset($_SESSION['user'])) {
         $wishlist->addToWishlist($_POST['wish_item_id'], $_POST['wish_user_id']);
     } else {
-        echo "<script>alert('You are not logged in yet. Please register and try again.');</script>";
+        header("Location: login.php");
     }
 }
 $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
@@ -115,7 +115,7 @@ $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
                                 </ul>
                             </div>
                             <div class="featured__item__text">
-                                <h6><a href="#"><?= $row['name'] ?></a></h6>
+                                <h6><a href="./product_details.php?id=<?= $row['id'] ?>"><?= $row['name'] ?></a></h6>
                                 <h5>$<?= $row['price'] ?></h5>
                             </div>
                         </div>
@@ -151,13 +151,14 @@ $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
                         <div class="latest-product__slider owl-carousel">
                             <?php
                             $count = 1;
-                            foreach ($products->getLatestProducts() as $index => $row) {
+                            $latestProducts = $products->getLatestProducts();
+                            foreach ($latestProducts as $index => $row) {
                                 $index++;
                                 if ($index % 3 == 0) {
                             ?>
                                     <div class="latest-prdouct__slider__item">
                                         <?php
-                                        foreach ($products->getLatestProducts() as $key => $row) {
+                                        foreach ($latestProducts as $key => $row) {
                                             $key++;
                                             if ($index >= $key & $key < 4) {
                                         ?>
@@ -185,64 +186,36 @@ $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
                     <div class="latest-product__text">
                         <h4>Top Rated Products</h4>
                         <div class="latest-product__slider owl-carousel">
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/lp-1.jpg" alt="">
+                            <?php
+                            $count = 1;
+                            $latestProducts = $products->getLatestProducts();
+                            foreach ($latestProducts as $index => $row) {
+                                $index++;
+                                if ($index % 3 == 0) {
+                            ?>
+                                    <div class="latest-prdouct__slider__item">
+                                        <?php
+                                        foreach ($latestProducts as $key => $row) {
+                                            $key++;
+                                            if ($index >= $key & $key < 4) {
+                                        ?>
+                                                <a href="./product_details.php?id=<?= $row['id'] ?>"" class=" latest-product__item">
+                                                    <div class="latest-product__item__pic">
+                                                        <img src="./img/<?= $row['image'] ?>" alt="">
+                                                    </div>
+                                                    <div class="latest-product__item__text">
+                                                        <h6><?= $row['name'] ?></h6>
+                                                        <span>$<?= $row['price'] ?></span>
+                                                    </div>
+                                                </a>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
                                     </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/lp-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                            </div>
+                            <?php
+                                }
+                            } ?>
                         </div>
                     </div>
                 </div>
@@ -250,64 +223,36 @@ $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
                     <div class="latest-product__text">
                         <h4>Review Products</h4>
                         <div class="latest-product__slider owl-carousel">
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/lp-1.jpg" alt="">
+                            <?php
+                            $count = 1;
+                            $latestProducts = $products->getLatestProducts();
+                            foreach ($latestProducts as $index => $row) {
+                                $index++;
+                                if ($index % 3 == 0) {
+                            ?>
+                                    <div class="latest-prdouct__slider__item">
+                                        <?php
+                                        foreach ($latestProducts as $key => $row) {
+                                            $key++;
+                                            if ($index >= $key & $key < 4) {
+                                        ?>
+                                                <a href="./product_details.php?id=<?= $row['id'] ?>"" class=" latest-product__item">
+                                                    <div class="latest-product__item__pic">
+                                                        <img src="./img/<?= $row['image'] ?>" alt="">
+                                                    </div>
+                                                    <div class="latest-product__item__text">
+                                                        <h6><?= $row['name'] ?></h6>
+                                                        <span>$<?= $row['price'] ?></span>
+                                                    </div>
+                                                </a>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
                                     </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/lp-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
-                                    </div>
-                                </a>
-                            </div>
+                            <?php
+                                }
+                            } ?>
                         </div>
                     </div>
                 </div>
@@ -338,8 +283,8 @@ $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
                                 </div>
                                 <div class="blog__item__text">
                                     <ul>
-                                        <li><i class="fa fa-calendar-o"></i> <?= $row['dateTime'] ?></li>
-                                        <li><i class="fa fa-comment-o"></i> 5</li>
+                                        <li><i class="fa-regular fa-calendar"></i> <?= $row['dateTime'] ?></li>
+                                        <li><i class="fa-regular fa-comment"></i> 5</li>
                                     </ul>
                                     <h5><a href="blog_details.php?id=<?= $row['id'] ?>"><?= $row['content'] ?></a></h5>
                                     <p><?= substr($row['title'], 0, 100); ?>...</p>

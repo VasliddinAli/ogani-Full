@@ -43,7 +43,8 @@ $blog = new Blog($db);
 // User object
 $user = new User($db);
 
-function logOut(){
-    session_destroy();
+function logOut()
+{
+    unset($_SESSION['admin']);
     header("Location: index.php");
 }

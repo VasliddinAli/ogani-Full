@@ -210,7 +210,7 @@ $(document).ready(function () {
       data: { itemid: $(this).data("id") },
       success: function (result) {
         let obj = JSON.parse(result);
-        let item_price = obj[0]["item_price"];
+        let item_price = obj[0]["price"];
 
         if ($input.val() >= 1 && $input.val() <= 9) {
           $input.val(function (i, oldval) {
@@ -240,7 +240,7 @@ $(document).ready(function () {
       data: { itemid: $(this).data("id") },
       success: function (result) {
         let obj = JSON.parse(result);
-        let item_price = obj[0]["item_price"];
+        let item_price = obj[0]["price"];
 
         if ($input.val() > 1 && $input.val() <= 10) {
           $input.val(function (i, oldval) {

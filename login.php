@@ -11,7 +11,7 @@ if (isset($_POST['sign'])) {
     $row = $user->getUser($email);
     if ($email != $row['email']) {
         $user->setUser($name, $email, $password);
-        $_SESSION['user'] = $row;
+        header("Location: login.php");
     } else {
         $error = "This email is already use";
     }

@@ -1,11 +1,12 @@
 <?php
 // header import
 include('./header.php');
+if (isset($_SESSION['user'])) {
+    $user_wishlist = $wishlist->getWishlist($_SESSION['user']['id']);
+}
 
 if (isset($_POST['delete-wishlist-submit'])) {
-    if ($products->getProducts('wishlist')[0]['user_id'] == $_SESSION['user']['id']) {
-        $deletedrecord = $wishlist->deleteWishlist($_POST['id']);
-    }
+    $deletedrecord = $wishlist->deleteWishlist($_POST['id']);
 }
 ?>
 
@@ -28,7 +29,7 @@ if (isset($_POST['delete-wishlist-submit'])) {
     </section>
 
     <section class="shoping-cart spad">
-        <?php if (isset($_SESSION['user']) && $products->getProducts('wishlist')) { ?>
+        <?php if (isset($_SESSION['user']) && $user_wishlist) { ?>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -45,7 +46,7 @@ if (isset($_POST['delete-wishlist-submit'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    foreach ($products->getProducts('wishlist') as $item) :
+                                    foreach ($user_wishlist as $item) :
                                         if ($item['user_id'] == $_SESSION['user']['id']) {
                                             $wishlist = $products->getProduct($item['item_id']);
                                             $TotalSum[] = array_map(function ($item) {
@@ -66,7 +67,7 @@ if (isset($_POST['delete-wishlist-submit'])) {
                                                     </td>
                                                 </tr>
                                     <?php
-                                            }, $wishlist); // closing array_map function
+                                            }, $wishlist);
                                         }
                                     endforeach;
                                     ?>

@@ -1,5 +1,9 @@
 <?php
 include('./functions.php');
+if(isset($_SESSION['user'])){
+    $user_wishlist = $wishlist->getWishlist($_SESSION['user']['id']);
+    $user_cart = $cart->getCart($_SESSION['user']['id']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -34,18 +38,22 @@ include('./functions.php');
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                <li><a href="./wishlist.php"><i class="fa fa-heart"></i> <span><?php if (isset($_SESSION['user'])) {
-                                                                                    echo count($products->getProducts('wishlist'));
-                                                                                } else {
-                                                                                    echo 0;
-                                                                                } ?></span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span><?php if (isset($_SESSION['user'])) {
-                                                                                echo count($products->getProducts('cart'));
-                                                                            } else {
-                                                                                echo 0;
-                                                                            } ?></span></a></li>
+                <li><a href="./wishlist.php"><i class="fa fa-heart"></i> <span>
+                            <?php
+                            if (isset($_SESSION['user']) && isset($user_wishlist)) {
+                                echo count($user_wishlist);
+                            } else {
+                                echo 0;
+                            } ?></span></a></li>
+                <li><a href="cart.php"><i class="fa fa-shopping-bag"></i> <span>
+                            <?php
+                            if (isset($_SESSION['user']) && isset($user_cart)) {
+                                echo count($user_cart);
+                            } else {
+                                echo 0;
+                            } ?></span></a></li>
             </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
+            <div class="header__cart__price">item: <span>$<?php allSum();?></span></div>
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
@@ -188,21 +196,21 @@ include('./functions.php');
                         <ul>
                             <li><a href="./wishlist.php"><i class="fa fa-heart"></i> <span>
                                         <?php
-                                        if (isset($_SESSION['user'])) {
-                                            echo count($products->getProducts('wishlist'));
+                                        if (isset($_SESSION['user']) && isset($user_wishlist)) {
+                                            echo count($user_wishlist);
                                         } else {
                                             echo 0;
                                         } ?></span></a></li>
                             <li><a href="cart.php"><i class="fa fa-shopping-bag"></i> <span>
                                         <?php
-                                        if (isset($_SESSION['user'])) {
-                                            echo count($products->getProducts('cart'));
+                                        if (isset($_SESSION['user']) && isset($user_cart)) {
+                                            echo count($user_cart);
                                         } else {
                                             echo 0;
                                         }
                                         ?></span></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                        <div class="header__cart__price">item: <span>$<?php allSum();?></span></div>
                     </div>
                 </div>
             </div>

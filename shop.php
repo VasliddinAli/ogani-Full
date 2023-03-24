@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
     }
 }
-$in_cart = $cart->getCartId($products->getProducts('cart'));
 
 if (isset($_POST['add_wishlist'])) {
     if (isset($_SESSION['user'])) {
@@ -21,7 +20,13 @@ if (isset($_POST['add_wishlist'])) {
         header("Location: login.php");
     }
 }
-$in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
+
+
+if(isset($_SESSION['user'])){
+    $mahsulotlar = $products->getProducts($_SESSION['user']['id']);
+}else{
+    $mahsulotlar = $products->getProducts(0);
+}
 ?>
 
 <main>
@@ -185,18 +190,18 @@ $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
-                                <?php foreach ($products->getProducts() as $row) { ?>
+                                <?php foreach ($mahsulotlar as $row) { ?>
                                     <div class="col-lg-4">
                                         <div class="product__discount__item">
                                             <div class="product__discount__item__pic set-bg" data-setbg="./img/<?= $row['image'] ?>">
-                                                <div class="product__discount__percent">-20%</div>
+                                                <div class="product__discount__percent">-11%</div>
                                                 <ul class="product__item__pic__hover">
                                                     <li><a href="#">
                                                             <form method="post">
                                                                 <input type="hidden" name="wish_item_id" value="<?php echo $row['id'] ?? '1'; ?>">
                                                                 <input type="hidden" name="wish_user_id" value="<?php echo $_SESSION['user']['id'] ?>">
                                                                 <?php
-                                                                if (isset($_SESSION['user']) && in_array($row['id'], $in_wishlist ?? [])) {
+                                                                if (isset($_SESSION['user']) && $row['have_wishlist'] == 1) {
                                                                     echo '<button type="submit" disabled class="btn btn-success font-size-12"><i class="fa-solid fa-check"></i></button>';
                                                                 } else {
                                                                     echo '<button type="submit" name="add_wishlist" class="btn btn-warning font-size-12"><i class="fa fa-heart"></i></button>';
@@ -210,7 +215,7 @@ $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
                                                                 <input type="hidden" name="item_id" value="<?php echo $row['id'] ?? '1'; ?>">
                                                                 <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id'] ?>">
                                                                 <?php
-                                                                if (isset($_SESSION['user']) && in_array($row['id'], $in_cart ?? [])) {
+                                                                if (isset($_SESSION['user']) && $row['have_cart'] == 1) {
                                                                     echo '<button type="submit" disabled class="btn btn-success font-size-12"><i class="fa-solid fa-check"></i></button>';
                                                                 } else {
                                                                     echo '<button type="submit" name="top_sale_submit" class="btn btn-warning font-size-12"><i class="fa fa-shopping-cart"></i></button>';
@@ -223,7 +228,7 @@ $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
                                             <div class="product__discount__item__text">
                                                 <span><?= $row['category_id'] ?></span>
                                                 <h5><a href="#"><?= $row['name'] ?></a></h5>
-                                                <div class="product__item__price">$<?= $row['price'] / 100 * 20; ?> <span>$<?= $row['price'] ?></span></div>
+                                                <div class="product__item__price">$<?= $row['price'] / 100 * 89; ?> <span>$<?= $row['price'] ?></span></div>
                                             </div>
                                         </div>
                                     </div>
@@ -246,7 +251,7 @@ $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
                                 <div class="filter__found">
                                     <h6><span>
                                             <?php $a = 0;
-                                            foreach ($products->getProducts() as $count) $a++;
+                                            foreach ($mahsulotlar as $count) $a++;
                                             echo $a; ?>
                                         </span> Products found</h6>
                                 </div>
@@ -260,7 +265,7 @@ $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
                         </div>
                     </div>
                     <div class="row">
-                        <?php foreach ($products->getProducts() as $row) { ?>
+                        <?php foreach ($mahsulotlar as $row) { ?>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
                                     <div class="product__item__pic set-bg" data-setbg="./img/<?= $row['image'] ?>">
@@ -270,7 +275,7 @@ $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
                                                         <input type="hidden" name="wish_item_id" value="<?php echo $row['id'] ?? '1'; ?>">
                                                         <input type="hidden" name="wish_user_id" value="<?php echo $_SESSION['user']['id'] ?>">
                                                         <?php
-                                                        if (isset($_SESSION['user']) && in_array($row['id'], $in_wishlist ?? [])) {
+                                                        if (isset($_SESSION['user']) && $row['have_wishlist'] == 1) {
                                                             echo '<button type="submit" disabled class="btn btn-success font-size-12"><i class="fa-solid fa-check"></i></button>';
                                                         } else {
                                                             echo '<button type="submit" name="add_wishlist" class="btn btn-warning font-size-12"><i class="fa fa-heart"></i></button>';
@@ -284,7 +289,7 @@ $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
                                                         <input type="hidden" name="item_id" value="<?php echo $row['id'] ?? '1'; ?>">
                                                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id'] ?>">
                                                         <?php
-                                                        if (isset($_SESSION['user']) && in_array($row['id'], $in_cart ?? [])) {
+                                                        if (isset($_SESSION['user']) && $row['have_cart'] == 1) {
                                                             echo '<button type="submit" disabled class="btn btn-success font-size-12"><i class="fa-solid fa-check"></i></button>';
                                                         } else {
                                                             echo '<button type="submit" name="top_sale_submit" class="btn btn-warning font-size-12"><i class="fa fa-shopping-cart"></i></button>';

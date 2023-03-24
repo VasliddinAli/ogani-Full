@@ -77,7 +77,7 @@ if (isset($_POST['delete-product'])) {
                         </tr>
                     </tbody>
                     <tbody>
-                        <?php foreach ($products->getProducts() as $row) { ?>
+                        <?php foreach ($products->getProducts(0) as $row) { ?>
                             <tr>
                                 <th><?= $row['id'] ?></th>
                                 <td><img src="./img/<?= $row['image'] ?>"></td>

@@ -12,11 +12,15 @@ class Cart
     }
 
     // get cart items
-    public function getCart()
+    public function getCart($user_id)
     {
-        $result = $this->db->con->query("SELECT * FROM cart");
+        $result = $this->db->con->query("SELECT * FROM cart WHERE user_id=$user_id");
         if ($result->num_rows > 0) {
-            return $result;
+            $arr = [];
+            foreach($result as $row){
+                $arr[] = $row;
+            }
+            return $arr;
         }
     }
 
@@ -80,17 +84,6 @@ class Cart
                 $sum += floatval($item[0]);
             }
             return sprintf('%.2f' , $sum);
-        }
-    }
-
-    // get item_id of shopping cart list
-    public function getCartId($cartArray = null, $key = 'item_id')
-    {
-        if ($cartArray != null) {
-            $cart_id = array_map(function ($value) use ($key) {
-                return $value[$key];
-            }, $cartArray);
-            return $cart_id;
         }
     }
 }

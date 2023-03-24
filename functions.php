@@ -48,3 +48,23 @@ function logOut()
     unset($_SESSION['admin']);
     header("Location: index.php");
 }
+
+
+function allSum()
+{
+    global $products;
+    global $cart;
+    if(isset($_SESSION['user']) && $cart->getCart($_SESSION['user']['id'])){
+        foreach ($cart->getCart($_SESSION['user']['id']) as $item){
+            if ($item['user_id'] == $_SESSION['user']['id']) {
+                $product = $products->getProduct($item['item_id']);
+                $subTotal[] = array_map(function ($item) {
+                    return $item['price'];
+                }, $product);
+            }
+        }
+        echo $cart->getSum($subTotal);
+    }else{
+        echo 0;
+    }
+}

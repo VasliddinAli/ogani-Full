@@ -2,18 +2,13 @@
 // header import
 include('./header.php');
 
-// request method post
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    if (isset($_POST['top_sale_submit'])) {
-        if (isset($_SESSION['user'])) {
-            $cart->addToCart($_POST['user_id'], $_POST['item_id']);
-        } else {
-            header("Location: login.php");
-        }
-    };
-}
-$in_cart = $cart->getCartId($products->getProducts('cart'));
-
+if (isset($_POST['top_sale_submit'])) {
+    if (isset($_SESSION['user'])) {
+        $cart->addToCart($_POST['user_id'], $_POST['item_id']);
+    } else {
+        header("Location: login.php");
+    }
+};
 if (isset($_POST['add_wishlist'])) {
     if (isset($_SESSION['user'])) {
         $wishlist->addToWishlist($_POST['wish_item_id'], $_POST['wish_user_id']);
@@ -21,8 +16,15 @@ if (isset($_POST['add_wishlist'])) {
         header("Location: login.php");
     }
 }
-$in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
 
+if (isset($_SESSION['user'])) {
+    $user_wishlist = $wishlist->getWishlist($_SESSION['user']['id']);
+    $user_cart = $cart->getCart($_SESSION['user']['id']);
+
+    $mahsulotlar = $products->getProducts($_SESSION['user']['id']);
+} else {
+    $mahsulotlar = $products->getProducts(0);
+}
 
 
 
@@ -80,17 +82,17 @@ $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
                 </div>
             </div>
             <div class="row featured__filter">
-                <?php foreach ($products->getProducts() as $row) {  ?>
+                <?php foreach ($mahsulotlar as $row) { ?>
                     <div class="col-lg-3 col-md-4 col-sm-6 mix category_<?= $row['category_id'] ?>">
                         <div class="featured__item">
                             <div class="featured__item__pic set-bg" data-setbg="./img/<?= $row['image'] ?>">
                                 <ul class="featured__item__pic__hover">
                                     <li><a href="#">
                                             <form method="post">
-                                                <input type="hidden" name="wish_item_id" value="<?php echo $row['id'] ?? '1'; ?>">
+                                                <input type="hidden" name="wish_item_id" value="<?php echo $row['id'] ?>">
                                                 <input type="hidden" name="wish_user_id" value="<?php echo $_SESSION['user']['id'] ?>">
                                                 <?php
-                                                if (isset($_SESSION['user']) && in_array($row['id'], $in_wishlist ?? [])) {
+                                                if (isset($_SESSION['user']) && $row['have_wishlist'] == 1) {
                                                     echo '<button type="submit" disabled class="btn btn-success font-size-12"><i class="fa-solid fa-check"></i></button>';
                                                 } else {
                                                     echo '<button type="submit" name="add_wishlist" class="btn btn-warning font-size-12"><i class="fa fa-heart"></i></button>';
@@ -101,10 +103,10 @@ $in_wishlist = $wishlist->getWishlistId($products->getProducts('wishlist'));
                                     <li><a href="./product_details.php?id=<?= $row['id'] ?>"><i class="fa-solid fa-eye"></i></a></li>
                                     <li><a href="#">
                                             <form method="post">
-                                                <input type="hidden" name="item_id" value="<?php echo $row['id'] ?? '1'; ?>">
+                                                <input type="hidden" name="item_id" value="<?php echo $row['id'] ?>">
                                                 <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id'] ?>">
                                                 <?php
-                                                if (isset($_SESSION['user']) && in_array($row['id'], $in_cart ?? [])) {
+                                                if (isset($_SESSION['user']) && $row['have_cart'] == 1) {
                                                     echo '<button type="submit" disabled class="btn btn-success font-size-12"><i class="fa-solid fa-check"></i></button>';
                                                 } else {
                                                     echo '<button type="submit" name="top_sale_submit" class="btn btn-warning font-size-12"><i class="fa fa-shopping-cart"></i></button>';

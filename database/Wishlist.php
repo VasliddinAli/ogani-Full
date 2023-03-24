@@ -12,11 +12,15 @@ class Wishlist
     }
 
     // get cart items
-    public function getWishlist()
+    public function getWishlist($user_id)
     {
-        $result = $this->db->con->query("SELECT * FROM wishlist");
+        $result = $this->db->con->query("SELECT * FROM wishlist WHERE user_id=$user_id");
         if ($result->num_rows > 0) {
-            return $result;
+            $arr = [];
+            foreach($result as $row){
+                $arr[] = $row;
+            }
+            return $arr;
         }
     }
 

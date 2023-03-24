@@ -27,9 +27,10 @@ if(isset($_POST['update_item'])){
         $result = $products->updateProduct($name, $category_id, $price, $image);
         unlink($row['image']);
     }else{
-        $result = $products->updateProduct($name, $category_id, $price, $image);
+        $result = $products->updateProduct($name, $category_id, $price, $item_image);
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +59,7 @@ if(isset($_POST['update_item'])){
                 </div>
                 <div class="mb-3">
                     <label>Select category</label>
-                    <select class="form-select" name="category_id" aria-label="Default select example">
+                    <select class="form-select" name="category_id" aria-label="Default select example" required>
                         <option selected></option>
                         <?php foreach($categories->getCategories() as $row){?>
                         <option value="<?= $row['id']?>"><?= $row['name']?></option>

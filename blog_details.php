@@ -114,7 +114,12 @@ $row = $blog->getBlog();
                             <div class="col-lg-6">
                                 <div class="blog__details__widget">
                                     <ul>
-                                        <li><span>Categories:</span> <?= $row['category_id'] ?></li>
+                                        <li><span>Categories:</span> <?php
+                                        foreach($categories->getCategories() as $item){
+                                            if($item['id'] == $row['category_id']){
+                                                echo $item['name'];
+                                            }
+                                        } ?></li>
                                         <li><span>Tags:</span> <?= $row['tags'] ?></li>
                                     </ul>
                                     <div class="blog__details__social">

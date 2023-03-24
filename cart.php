@@ -1,11 +1,12 @@
 <?php
 // header import
 include('./header.php');
+if(isset($_SESSION['user'])){
+    $user_cart = $cart->getCart($_SESSION['user']['id']);
+}
 
 if (isset($_POST['delete-cart-submit'])) {
-    if ($products->getProducts('cart')[0]['user_id'] == $_SESSION['user']['id']) {
-        $deletedrecord = $cart->deleteCart($_POST['id']);
-    }
+    $deletedrecord = $cart->deleteCart($_POST['id']);
 }
 ?>
 
@@ -28,9 +29,7 @@ if (isset($_POST['delete-cart-submit'])) {
     </section>
 
     <section class="shoping-cart spad">
-        <?php
-        $check_cart = $products->getProducts('cart');
-        if (isset($_SESSION['user']) && $check_cart) { ?>
+        <?php if (isset($_SESSION['user']) && $user_cart) { ?>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -47,7 +46,7 @@ if (isset($_POST['delete-cart-submit'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    foreach ($products->getProducts('cart') as $item) :
+                                    foreach ($user_cart as $item) :
                                         if ($item['user_id'] == $_SESSION['user']['id']) {
                                             $product = $products->getProduct($item['item_id']);
                                             $subTotal[] = array_map(function ($item) {
@@ -78,7 +77,7 @@ if (isset($_POST['delete-cart-submit'])) {
                                                 </tr>
                                     <?php
                                                 return $item['price'];
-                                            }, $product); // closing array_map function
+                                            }, $product);
                                         }
                                     endforeach;
                                     ?>
@@ -113,7 +112,7 @@ if (isset($_POST['delete-cart-submit'])) {
                                 <li>Total
                                     <span class="text-danger">$
                                         <span class="text-danger" id="deal-price">
-                                            <?php echo $cart->getSum($subTotal) ?>
+                                            <?php allSum() ?>
                                         </span>
                                     </span>
                                 </li>

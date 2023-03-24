@@ -25,10 +25,10 @@ if(isset($_SESSION['user'])){
 </head>
 
 <body>
-    <!-- 
+    
     <div id="preloder">
         <div class="loader"></div>
-    </div> -->
+    </div>
 
 
     <div class="humberger__menu__overlay"></div>

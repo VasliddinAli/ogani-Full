@@ -47,10 +47,11 @@ if (isset($_POST['delete-category'])) {
                     <img src="./img/logo.png" alt="">
                 </div>
                 <div class="header-contents">
-                    <a href="./admin.php">Products</a>
-                    <a href="./admin_categories.php" class="active">Categories</a>
-                    <a href="./admin_blog.php">Blog</a>
-                    <a href="./admin_users.php">Users</a>
+                        <a href="./admin.php">Products</a>
+                        <a href="./admin_categories.php" class="active">Categories</a>
+                        <a href="./admin_blog.php">Blog</a>
+                        <a href="./admin_users.php">Users</a>
+                        <a href="./admin_checkout.php">Cheackout address</a>
                 </div>
             </div>
         </header>

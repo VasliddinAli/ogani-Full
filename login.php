@@ -8,10 +8,11 @@ if (isset($_POST['sign'])) {
     $email = $_POST['email'];
     $pass = $_POST['password'];
     $password = md5($pass);
-    $row = $user->getUser($email);
-    if ($email != $row['email']) {
+    $check_user = $user->checkUser($email);
+    $get_user = $user->getUser($email);
+    if ($email != $check_user['email']) {
         $user->setUser($name, $email, $password);
-        header("Location: login.php");
+        $_SESSION['user'] = $get_user;
     } else {
         $error = "This email is already use";
     }

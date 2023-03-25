@@ -112,12 +112,12 @@ if (isset($_POST['delete-cart-submit'])) {
                                 <li>Total
                                     <span class="text-danger">$
                                         <span class="text-danger" id="deal-price">
-                                            <?php allSum() ?>
+                                            <?php echo allSum() ?>
                                         </span>
                                     </span>
                                 </li>
                             </ul>
-                            <a href="pages_check.php" class="primary-btn">PROCEED TO CHECKOUT</a>
+                            <a href="checkout.php" class="primary-btn">PROCEED TO CHECKOUT</a>
                         </div>
                     </div>
                 </div>

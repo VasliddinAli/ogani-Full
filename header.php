@@ -26,9 +26,9 @@ if(isset($_SESSION['user'])){
 
 <body>
     
-    <div id="preloder">
+    <!-- <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> -->
 
 
     <div class="humberger__menu__overlay"></div>
@@ -53,7 +53,7 @@ if(isset($_SESSION['user'])){
                                 echo 0;
                             } ?></span></a></li>
             </ul>
-            <div class="header__cart__price">item: <span>$<?php allSum();?></span></div>
+            <div class="header__cart__price">item: <span>$<?php echo allSum();?></span></div>
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
@@ -92,7 +92,7 @@ if(isset($_SESSION['user'])){
                 <li><a href="shop.php">Shop</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="pages_check.php">Check Out</a></li>
+                        <li><a href="checkout.php">Check Out</a></li>
                     </ul>
                 </li>
                 <li><a href="blog.php">Blog</a></li>
@@ -183,7 +183,7 @@ if(isset($_SESSION['user'])){
                             <li><a href="shop.php">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="pages_check.php">Check Out</a></li>
+                                    <li><a href="checkout.php">Check Out</a></li>
                                 </ul>
                             </li>
                             <li><a href="blog.php">Blog</a></li>
@@ -210,7 +210,7 @@ if(isset($_SESSION['user'])){
                                         }
                                         ?></span></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$<?php allSum();?></span></div>
+                        <div class="header__cart__price">item: <span>$<?php echo allSum();?></span></div>
                     </div>
                 </div>
             </div>
@@ -232,7 +232,7 @@ if(isset($_SESSION['user'])){
                         </div>
                         <ul>
                             <?php foreach ($categories->getCategories() as $row) { ?>
-                                <li><a href="#"><?= $row['name'] ?></a></li>
+                                <li><a href="categories.php?id=<?= $row['id']?>"><?= $row['name'] ?></a></li>
                             <?php } ?>
                         </ul>
                     </div>

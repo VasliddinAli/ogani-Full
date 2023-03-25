@@ -15,24 +15,26 @@ class Products
         $result = $this->db->con->query("SELECT * FROM products");
         $resultArray = array();
 
-        foreach ($result as $item) {
-            if ($user_id > 0) {
-                $sql = $this->db->con->query("SELECT * FROM cart WHERE user_id=$user_id AND item_id=" . $item['id']);
-                if ($sql->num_rows > 0) {
-                    $item['have_cart'] = 1;
-                } else {
-                    $item['have_cart'] = 0;
+        if (isset($_SESSION['user'])) {
+            foreach ($result as $item) {
+                if ($user_id > 0) {
+                    $sql = $this->db->con->query("SELECT * FROM cart WHERE user_id=$user_id AND item_id=" . $item['id']);
+                    if ($sql->num_rows > 0) {
+                        $item['have_cart'] = 1;
+                    } else {
+                        $item['have_cart'] = 0;
+                    }
                 }
-            }
-            if ($user_id > 0) {
-                $sql_wish = $this->db->con->query("SELECT * FROM wishlist WHERE user_id=$user_id AND item_id=" . $item['id']);
-                if ($sql_wish->num_rows > 0) {
-                    $item['have_wishlist'] = 1;
-                } else {
-                    $item['have_wishlist'] = 0;
+                if ($user_id > 0) {
+                    $sql_wish = $this->db->con->query("SELECT * FROM wishlist WHERE user_id=$user_id AND item_id=" . $item['id']);
+                    if ($sql_wish->num_rows > 0) {
+                        $item['have_wishlist'] = 1;
+                    } else {
+                        $item['have_wishlist'] = 0;
+                    }
                 }
+                $resultArray[] = $item;
             }
-            $resultArray[] = $item;
         }
         return $resultArray;
     }
@@ -121,5 +123,35 @@ class Products
             header("Location:" . $_SERVER['PHP_SELF']);
         }
         return $result;
+    }
+
+    // get products by category id
+    public function getCategoryItems($category_id, $user_id)
+    {
+        $result = $this->db->con->query("SELECT * FROM products WHERE category_id=$category_id");
+        $resultArray = array();
+
+        if (isset($_SESSION['user'])) {
+            foreach ($result as $item) {
+                if ($user_id > 0) {
+                    $sql = $this->db->con->query("SELECT * FROM cart WHERE user_id=$user_id AND item_id=" . $item['id']);
+                    if ($sql->num_rows > 0) {
+                        $item['have_cart'] = 1;
+                    } else {
+                        $item['have_cart'] = 0;
+                    }
+                }
+                if ($user_id > 0) {
+                    $sql_wish = $this->db->con->query("SELECT * FROM wishlist WHERE user_id=$user_id AND item_id=" . $item['id']);
+                    if ($sql_wish->num_rows > 0) {
+                        $item['have_wishlist'] = 1;
+                    } else {
+                        $item['have_wishlist'] = 0;
+                    }
+                }
+                $resultArray[] = $item;
+            }
+        }
+        return $resultArray;
     }
 }

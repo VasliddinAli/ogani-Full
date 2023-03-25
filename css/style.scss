@@ -3381,6 +3381,8 @@ ol {
     height: 100vh;
     position: fixed;
     box-shadow: 1px 1px 10px 1px #ccc;
+    z-index: 999;
+    background-color: #fff;
     & .header{
       display: flex;
       flex-direction: column;

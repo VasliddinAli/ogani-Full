@@ -21,14 +21,22 @@ class User{
     public function setUser($name, $email, $password){
         $result = "INSERT INTO `user` (`name`, `email`, `password`) VALUES ('$name', '$email', '$password');";
         if ($this->db->con->query($result)) {
-            header("Location: index.php");
+            // header("Location: index.php");
             return $result;
         }
     }
 
-    // get one user by email
-    public function getUser($users_email){
+    // check one user by email
+    public function checkUser($users_email){
         $result = $this->db->con->query("SELECT * FROM user WHERE `email` = '". $users_email ."' LIMIT 1");
+        if($result->num_rows > 0){
+            return $result->fetch_assoc();
+        }
+    }
+
+    // get one user by email
+    public function getUser($user_email){
+        $result = $this->db->con->query("SELECT * FROM user WHERE `email` = '". $user_email ."' LIMIT 1");
         if($result->num_rows > 0){
             return $result->fetch_assoc();
         }

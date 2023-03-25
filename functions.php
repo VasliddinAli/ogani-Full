@@ -22,6 +22,9 @@ require('database/Blog.php');
 // require User Class
 require('database/User.php');
 
+// require checkout Class
+require('database/checkout.php');
+
 // DBController object
 $db = new DBController();
 
@@ -43,6 +46,9 @@ $blog = new Blog($db);
 // User object
 $user = new User($db);
 
+// User object
+$checkout = new Checkout($db);
+
 function logOut()
 {
     unset($_SESSION['admin']);
@@ -63,8 +69,8 @@ function allSum()
                 }, $product);
             }
         }
-        echo $cart->getSum($subTotal);
+        return $cart->getSum($subTotal);
     }else{
-        echo 0;
+        return 0;
     }
 }

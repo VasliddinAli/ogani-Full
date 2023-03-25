@@ -34,8 +34,8 @@ include('./functions.php');
                         <a href="./admin.php">Products</a>
                         <a href="./admin_categories.php">Categories</a>
                         <a href="./admin_blog.php">Blog</a>
-                        <a href="./admin_users.php" class="active">Users</a>
-                        <a href="./admin_checkout.php">Cheackout address</a>
+                        <a href="./admin_users.php">Users</a>
+                        <a href="./admin_checkout.php" class="active">Cheackout address</a>
                     </div>
                 </div>
             </header>
@@ -44,18 +44,28 @@ include('./functions.php');
                     <tbody>
                         <tr>
                             <th>ID</th>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Email</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Country</th>
+                            <th>Region</th>
+                            <th>District</th>
+                            <th>Address</th>
+                            <th>Zip Code</th>
+                            <th>All Sum</th>
                         </tr>
                     </tbody>
                     <tbody>
-                        <?php foreach ($user->getUsers() as $row) { ?>
+                        <?php foreach ($checkout->getCheckout() as $row) { ?>
                             <tr>
-                                <td><?= $row['id'] ?></td>
-                                <td><img src="./img/users/<?= $row['image'] ?>"></td>
-                                <td><?= $row['name'] ?></td>
-                                <td><?= $row['email'] ?></td>
+                                <th><?= $row['id'] ?></th>
+                                <td><?= $row['firstName']?></td>
+                                <td><?= $row['lastName'] ?></td>
+                                <td><?= $row['country'] ?></td>
+                                <td><?= $row['region'] ?></td>
+                                <td><?= $row['district'] ?></td>
+                                <td><?= $row['address'] ?></td>
+                                <td><?= $row['zipCode'] ?></td>
+                                <td>$<?= $row['allSum'] ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>

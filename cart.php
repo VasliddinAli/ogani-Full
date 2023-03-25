@@ -106,7 +106,7 @@ if (isset($_POST['delete-cart-submit'])) {
                                 <li>Total
                                     <span class="text-danger">$
                                         <span class="text-danger" id="deal-price">
-                                            <?php echo allSum() ?>
+                                            <?php echo allSum(); ?>
                                         </span>
                                     </span>
                                 </li>

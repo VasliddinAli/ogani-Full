@@ -33,7 +33,7 @@ $get_orders = $orders->getOrders($_GET['user_id']);
                                 logOut();
                             } ?>
                         </form>
-                        <img src="./img/logo.png" alt="">
+                        <img src="./img/logo.png">
                     </div>
                     <div class="header-contents">
                         <a href="./admin.php">Products</a>
@@ -45,54 +45,45 @@ $get_orders = $orders->getOrders($_GET['user_id']);
                 </div>
             </header>
             <section class="main">
-                <table class="table table-hover products mt-2 mb-5">
-                    <tbody>
-                        <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Country</th>
-                            <th>Region</th>
-                            <th>Destrict</th>
-                            <th>Address</th>
-                            <th>Zip Code</th>
-                            <th>All Sum</th>
-                            <th>Added time</th>
-                        </tr>
-                    </tbody>
-                    <tbody>
-                        <?php foreach ($checkout->getCheckout() as $row) { if($row['user_id'] == $_GET['user_id']){ ?>
-                            <tr>
-                                <td><?= $row['firstName'] ?></td>
-                                <td><?= $row['lastName'] ?></td>
-                                <td><?= $row['country'] ?></td>
-                                <td><?= $row['region'] ?></td>
-                                <td><?= $row['district'] ?></td>
-                                <td><?= $row['address'] ?></td>
-                                <td><?= $row['zipCode'] ?></td>
-                                <td>$<?= $row['allSum'] ?></td>
-                                <td><?= $row['date'] ?></td>
-                            </tr>
-                        <?php }} ?>
-                    </tbody>
-                </table>
-
-                <div class="mb-3">
-                    <h4 class="mb-3 fw-bold">Ordered products</h4>
-                    <div class="d-flex gap-2 flex-wrap ">
-                        <?php foreach ($get_orders as $row) { ?>
-                            <div class="card" style="width: 190px;">
-                                <img src="./img/<?= $row['image'] ?>" class="card-img-top">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <h5 class="card-title" title="<?= $row['name'] ?>"><?= substr($row['name'], 0, 11); ?></h5>
-                                        <h5 class="card-title" title="One price: $<?= $row['price'] ?>">$ <?= $row['price'] ?></h5>
-                                    </div>
-                                    <p class="text-end" title="<?= substr($row['date'], 10, 18); ?>"><?= substr($row['date'], 0, 10); ?></p>
-                                </div>
+                <div class="p-2 mt-3 d-flex gap-2 flex-wrap">
+                    <?php foreach ($checkout->getCheckout() as $row) {
+                        if ($row['user_id'] == $_GET['user_id']) { ?>
+                            <div class="card p-3">
+                                <h5 class="fw-bold">First Name: <span class="fw-normal text-secondary ms-md-2"><?= $row['firstName'] ?></span></h5>
+                                <h5 class="fw-bold">Last Name: <span class="fw-normal text-secondary ms-md-2"><?= $row['lastName'] ?></span></h5>
+                                <h5 class="fw-bold">Country: <span class="fw-normal text-secondary ms-md-2"><?= $row['country'] ?></span></h5>
+                                <h5 class="fw-bold">Region: <span class="fw-normal text-secondary ms-md-2"><?= $row['region'] ?></span></h5>
+                                <h5 class="fw-bold">District: <span class="fw-normal text-secondary ms-md-2"><?= $row['district'] ?></span></h5>
+                                <h5 class="fw-bold">Address: <span class="fw-normal text-secondary ms-md-2"><?= $row['address'] ?></span></h5>
+                                <h5 class="fw-bold">Zip Code: <span class="fw-normal text-secondary ms-md-2"><?= $row['zipCode'] ?></span></h5>
+                                <h5 class="fw-bold">All Summ: <span class="fw-normal text-secondary ms-md-2">$<?= $row['allSum'] ?></span></h5>
+                                <h5 class="fw-bold">Date: <span class="fw-normal text-secondary ms-md-2"><?= $row['date'] ?></span></h5>
                             </div>
-                        <?php } ?>
-                    </div>
-                    <h4 class="float-end fw-bold">All Products: <?= $row['count'] ?></h4>
+                    <?php }
+                    } ?>
+                </div>
+
+                <div class="mt-4">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($get_orders as $row) { ?>
+                                <tr>
+                                    <td><img width="70px" src="./img/<?php echo $row['image']; ?>"></td>
+                                    <td><?php echo $row['name'] ?? "Unknown"; ?></td>
+                                    <td class="fw-bold">$<?php echo $row['price'] ?? 0; ?></td>
+                                    <td><?= $row['date'] ?></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
                 </div>
             </section>
         </main>

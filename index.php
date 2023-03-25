@@ -40,7 +40,7 @@ if (isset($_SESSION['user'])) {
                             <span>FRUIT FRESH</span>
                             <h2>Vegetable <br />100% Organic</h2>
                             <p>Free Pickup and Delivery Available</p>
-                            <a href="#" class="primary-btn">SHOP NOW</a>
+                            <a href="#products" class="primary-btn">SHOP NOW</a>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@ if (isset($_SESSION['user'])) {
 
     <section class="featured spad">
         <div class="container">
-            <div class="row">
+            <div class="row" id="products">
                 <div class="col-lg-12">
                     <div class="section-title">
                         <h2>Featured Product</h2>

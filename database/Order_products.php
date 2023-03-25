@@ -1,7 +1,7 @@
 <?php
 
 // PHP Cart class
-class Checkout
+class OrderProducts
 {
     public $db = null;
 
@@ -12,9 +12,9 @@ class Checkout
     }
 
     // get Checkout items
-    public function getCheckout()
+    public function getOrders($user_id)
     {
-        $result = $this->db->con->query("SELECT * FROM checkout");
+        $result = $this->db->con->query("SELECT * FROM order_products WHERE user_id=$user_id");
         if ($result->num_rows > 0) {
             $arr = [];
             foreach ($result as $row) {
@@ -25,9 +25,9 @@ class Checkout
     }
 
     // to set check data
-    public  function insertCheckout($firstName, $lastName, $country, $region, $district, $address, $zipCode, $allSum, $user_id)
+    public  function insertOrders($user_id, $name, $count, $price, $image)
     {
-        $result = "INSERT INTO `checkout` (`firstName`, `lastName`, `country`, `region`, `district`, `address`, `zipCode`, `allSum`, `user_id`) VALUES ('$firstName', '$lastName', '$country', '$region', '$district', '$address', '$zipCode', '$allSum', '$user_id');";
+        $result = "INSERT INTO `order_products` (`user_id`, `name`, `count`, `price`, `image`) VALUES ('$user_id', '$name', '$count', '$price', '$image')";
         if ($this->db->con->query($result)) {
             header("Location:" . $_SERVER['PHP_SELF']);
             return $result;

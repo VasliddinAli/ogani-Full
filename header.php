@@ -90,11 +90,6 @@ if(isset($_SESSION['user'])){
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="shop.php">Shop</a></li>
-                <li><a href="#">Pages</a>
-                    <ul class="header__menu__dropdown">
-                        <li><a href="checkout.php">Check Out</a></li>
-                    </ul>
-                </li>
                 <li><a href="blog.php">Blog</a></li>
                 <li><a href="contact.php">Contact</a></li>
             </ul>
@@ -181,11 +176,6 @@ if(isset($_SESSION['user'])){
                         <ul>
                             <li><a href="index.php">Home</a></li>
                             <li><a href="shop.php">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="checkout.php">Check Out</a></li>
-                                </ul>
-                            </li>
                             <li><a href="blog.php">Blog</a></li>
                             <li><a href="contact.php">Contact</a></li>
                         </ul>

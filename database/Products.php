@@ -35,6 +35,10 @@ class Products
                 }
                 $resultArray[] = $item;
             }
+        }else{
+            foreach ($result as $item){
+                $resultArray[] = $item;
+            }
         }
         return $resultArray;
     }

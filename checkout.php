@@ -1,8 +1,9 @@
 <?php
 // header import
 include('./header.php');
-
-if(isset($_POST['submit_order'])){
+$carts = [];
+$user_id = $_SESSION['user']['id'];
+if (isset($_POST['submit_order'])) {
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $country = $_POST['country'];
@@ -11,9 +12,24 @@ if(isset($_POST['submit_order'])){
     $address = $_POST['address'];
     $zipCode = $_POST['zipCode'];
     $allSum = allSum();
-
-    $checkout->insertCheckout($firstName, $lastName, $country, $region, $district, $address, $zipCode, $allSum);
+    $checkout->insertCheckout($firstName, $lastName, $country, $region, $district, $address, $zipCode, $allSum, $user_id);
+    if (isset($_SESSION['user']) && $cart->getCart($user_id)) {
+        $user_cart = $cart->getCart($_SESSION['user']['id']);
+        foreach ($user_cart as $item) {
+            if ($item['user_id'] == $_SESSION['user']['id']) {
+                $product = $products->getProduct($item['item_id']);
+                foreach ($product as $row) {
+                    $carts[] = $item;
+                    $orders->insertOrders($user_id, $row['name'], count($carts), $row['price'], $row['image']);
+                }
+            }
+        }
+    }
+    foreach($carts as $delCart){
+        $cart->deleteCart($delCart['item_id']);
+    }
 }
+
 ?>
 
 <main>
@@ -82,12 +98,12 @@ if(isset($_POST['submit_order'])){
                                 <p>Postcode / ZIP<span>*</span></p>
                                 <input name="zipCode" type="text" required>
                             </div>
-                        </div> 
+                        </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
                                 <h4>Your Order</h4>
-                                <div class="checkout__order__subtotal">Subtotal <span>$<?php echo allSum()?></span></div>
-                                <div class="checkout__order__total">Total <span>$<?php echo allSum()?></span></div>
+                                <div class="checkout__order__subtotal">Subtotal <span>$<?php echo allSum() ?></span></div>
+                                <div class="checkout__order__total">Total <span>$<?php echo allSum() ?></span></div>
                                 <button type="submit" name="submit_order" class="site-btn">PLACE ORDER</button>
                             </div>
                         </div>

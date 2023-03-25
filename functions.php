@@ -25,6 +25,9 @@ require('database/User.php');
 // require checkout Class
 require('database/checkout.php');
 
+// require checkout Class
+require('database/Order_products.php');
+
 // DBController object
 $db = new DBController();
 
@@ -46,8 +49,11 @@ $blog = new Blog($db);
 // User object
 $user = new User($db);
 
-// User object
+// Checkout object
 $checkout = new Checkout($db);
+
+// OrderProducts object
+$orders = new OrderProducts($db);
 
 function logOut()
 {

@@ -54,7 +54,7 @@ if (isset($_POST['delete-blog'])) {
                         <a href="./admin_categories.php">Categories</a>
                         <a href="./admin_blog.php" class="active">Blog</a>
                         <a href="./admin_users.php">Users</a>
-                        <a href="./admin_checkout.php">Cheackout address</a>
+                        <a href="./admin_checkout.php">Chackout address</a>
                     </div>
                 </div>
             </header>

@@ -9,10 +9,12 @@ if (isset($_POST['sign'])) {
     $pass = $_POST['password'];
     $password = md5($pass);
     $check_user = $user->checkUser($email);
-    $get_user = $user->getUser($email);
     if ($email != $check_user['email']) {
         $user->setUser($name, $email, $password);
-        $_SESSION['user'] = $get_user;
+        $_SESSION['user'] = $user->getUser($email);
+        if(isset($_SESSION['user'])){
+            header("Location: index.php");
+        }
     } else {
         $error = "This email is already use";
     }

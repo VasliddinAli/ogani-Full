@@ -57,7 +57,7 @@ if(isset($_SESSION['user'])){
                             <h4>Department</h4>
                             <ul>
                                 <?php foreach ($categories->getCategories() as $row) { ?>
-                                    <li><a href="#"><?= $row['name'] ?></a></li>
+                                    <li><a href="categories.php?id=<?= $row['id']?>"><?= $row['name'] ?></a></li>
                                 <?php } ?>
                             </ul>
                         </div>
@@ -227,7 +227,7 @@ if(isset($_SESSION['user'])){
                                             </div>
                                             <div class="product__discount__item__text">
                                                 <span><?= $row['category_id'] ?></span>
-                                                <h5><a href="#"><?= $row['name'] ?></a></h5>
+                                                <h5><a href="./product_details.php?id=<?= $row['id'] ?>"><?= $row['name'] ?></a></h5>
                                                 <div class="product__item__price">$<?= $row['price'] / 100 * 89; ?> <span>$<?= $row['price'] ?></span></div>
                                             </div>
                                         </div>
@@ -300,7 +300,7 @@ if(isset($_SESSION['user'])){
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
-                                        <h6><a href="#"><?= $row['name'] ?></a></h6>
+                                        <h6><a href="./product_details.php?id=<?= $row['id'] ?>"><?= $row['name'] ?></a></h6>
                                         <h5>$<?= $row['price'] ?></h5>
                                     </div>
                                 </div>

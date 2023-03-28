@@ -39,7 +39,7 @@ if (isset($_POST['delete-wishlist-submit'])) {
                                     <tr>
                                         <th class="shoping__product">Products</th>
                                         <th>Price</th>
-                                        <th>Quantity</th>
+                                        <th>Delete</th>
                                         <!-- <th>Total</th> -->
                                         <th></th>
                                     </tr>

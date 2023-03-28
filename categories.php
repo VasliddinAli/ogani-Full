@@ -1,7 +1,11 @@
 <?php
 include('./header.php');
 $item_id = $_GET['id'];
-$category_items = $products->getCategoryItems($item_id, $_SESSION['user']['id']);
+if(isset($_SESSION['user'])){
+    $category_items = $products->getCategoryItems($item_id, $_SESSION['user']['id']);
+}else{
+    $category_items = $products->getCategoryItems($item_id, 0);
+}
 
 if (isset($_POST['top_sale_submit'])) {
     if (isset($_SESSION['user'])) {

@@ -44,8 +44,8 @@ include('./functions.php');
                     <tbody>
                         <tr>
                             <th>ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th>Name</th>
+                            <th>email</th>
                             <th>Country</th>
                             <th>All Sum</th>
                             <th>Status</th>
@@ -58,7 +58,7 @@ include('./functions.php');
                             <tr>
                                 <th><?= $row['id'] ?></th>
                                 <td><?= $row['firstName'] ?></td>
-                                <td><?= $row['lastName'] ?></td>
+                                <td><?= $row['email'] ?></td>
                                 <td><?= $row['country'] ?></td>
                                 <td>$<?= $row['allSum'] ?></td>
                                 <td>Waiting...</td>

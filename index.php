@@ -26,7 +26,7 @@ if (isset($_SESSION['user'])) {
     $mahsulotlar = $products->getProducts(0);
 }
 
-    
+
 
 ?>
 
@@ -55,7 +55,7 @@ if (isset($_SESSION['user'])) {
                     <?php foreach ($categories->getCategories() as $row) { ?>
                         <div class="col-lg-3">
                             <div class="categories__item set-bg" data-setbg="./img/<?= $row['image'] ?>">
-                                <h5><a href="./categories.php?id=<?= $row['id']?>"><?= $row['name'] ?></a></h5>
+                                <h5><a href="./categories.php?id=<?= $row['id'] ?>"><?= $row['name'] ?></a></h5>
                             </div>
                         </div>
                     <?php } ?>
@@ -87,7 +87,7 @@ if (isset($_SESSION['user'])) {
                         <div class="featured__item">
                             <div class="featured__item__pic set-bg" data-setbg="./img/<?= $row['image'] ?>">
                                 <ul class="featured__item__pic__hover">
-                                    <li><a href="#">
+                                    <li><a>
                                             <form method="post">
                                                 <input type="hidden" name="wish_item_id" value="<?php echo $row['id'] ?>">
                                                 <input type="hidden" name="wish_user_id" value="<?php echo $_SESSION['user']['id'] ?>">
@@ -101,7 +101,7 @@ if (isset($_SESSION['user'])) {
                                             </form>
                                         </a></li>
                                     <li><a href="./product_details.php?id=<?= $row['id'] ?>"><i class="fa-solid fa-eye"></i></a></li>
-                                    <li><a href="#">
+                                    <li><a>
                                             <form method="post">
                                                 <input type="hidden" name="item_id" value="<?php echo $row['id'] ?>">
                                                 <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id'] ?>">
@@ -299,6 +299,7 @@ if (isset($_SESSION['user'])) {
         </div>
     </section>
 </main>
+
 
 <?php
 // footer import

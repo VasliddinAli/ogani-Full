@@ -1943,7 +1943,9 @@ ol {
 
 .shoping__checkout .primary-btn {
   display: block;
+  border: none;
   text-align: center;
+  width: 100%;
 }
 
 /*---------------------
@@ -2003,10 +2005,10 @@ ol {
 .checkout__input input {
   width: 100%;
   height: 46px;
-  border: 1px solid #ebebeb;
+  border: 1px solid #ccc;
   padding-left: 20px;
   font-size: 16px;
-  color: #b2b2b2;
+  color: #555;
   border-radius: 4px;
 }
 
@@ -3301,7 +3303,8 @@ ol {
 }
 .admin .main {
   padding-left: 320px;
-  width: 98%;
+  width: 100%;
+  padding-right: 10px;
   height: 100vh;
   overflow: auto;
 }

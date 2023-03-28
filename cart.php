@@ -1,12 +1,30 @@
 <?php
 // header import
 include('./header.php');
-if(isset($_SESSION['user'])){
+if (isset($_SESSION['user'])) {
     $user_cart = $cart->getCart($_SESSION['user']['id']);
 }
 
 if (isset($_POST['delete-cart-submit'])) {
     $deletedrecord = $cart->deleteCart($_POST['id']);
+}
+
+if (isset($_POST['submit_checkout'])) {
+    $carts = [];
+    $user_id = $_SESSION['user']['id'];
+    $user_cart = $cart->getCart($_SESSION['user']['id']);
+    foreach ($user_cart as $item) {
+        if ($item['user_id'] == $_SESSION['user']['id']) {
+            $product = $products->getProduct($item['item_id']);
+            foreach ($product as $row) {
+                $carts[] = $item;
+                $orders->insertOrders($user_id, $row['name'], count($carts), $row['price'], $row['image']);
+            }
+        }
+    }
+    foreach ($carts as $delCart) {
+        $cart->deleteCart($delCart['item_id']);
+    }
 }
 ?>
 
@@ -63,7 +81,7 @@ if (isset($_POST['delete-cart-submit'])) {
                                                         <div class="quantity">
                                                             <div class="pro-qty">
                                                                 <button class="qty_up border bg-light" data-id="<?php echo $item['id'] ?? 0 ?>"><i class="fas fa-angle-up"></i></button>
-                                                                <input type="text" data-id="<?php echo $item['id'] ?? 0 ?>" class="qty_input border px-2 w-100 bg-light" disabled value="1" placeholder="1">
+                                                                <input type="text" name="item_count" data-id="<?php echo $item['id'] ?? 0 ?>" class="qty_input border px-2 w-100 bg-light" disabled value="1" placeholder="1">
                                                                 <button data-id="<?php echo $item['id'] ?? 0 ?>" class="qty_down border bg-light"><i class="fas fa-angle-down"></i></button>
                                                             </div>
                                                         </div>

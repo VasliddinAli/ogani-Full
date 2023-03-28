@@ -4,6 +4,13 @@ if(isset($_SESSION['user'])){
     $user_wishlist = $wishlist->getWishlist($_SESSION['user']['id']);
     $user_cart = $cart->getCart($_SESSION['user']['id']);
 }
+
+
+// SEARCH
+if (isset($_POST['search'])) {
+    $search = $_POST['search-input'];
+    $search_result =  $products->search($search);
+}
 ?>
 
 <!DOCTYPE html>
@@ -230,13 +237,13 @@ if(isset($_SESSION['user'])){
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
+                            <form method="post">
                                 <div class="hero__search__categories">
                                     All Categories
                                     <span class="arrow_carrot-down"></span>
                                 </div>
-                                <input type="text" placeholder="What do yo u need?">
-                                <button type="submit" class="site-btn">SEARCH</button>
+                                <input type="text" name="search-input" placeholder="What do yo u need?" required>
+                                <button type="submit" name="search" class="site-btn">SEARCH</button>
                             </form>
                         </div>
                         <div class="hero__search__phone">

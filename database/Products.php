@@ -15,7 +15,7 @@ class Products
         $result = $this->db->con->query("SELECT * FROM products");
         $resultArray = array();
 
-        if (isset($_SESSION['user'])) {
+        if (isset($_SESSION['user']) || $user_id == 0) {
             foreach ($result as $item) {
                 if ($user_id > 0) {
                     $sql = $this->db->con->query("SELECT * FROM cart WHERE user_id=$user_id AND item_id=" . $item['id']);
@@ -35,8 +35,8 @@ class Products
                 }
                 $resultArray[] = $item;
             }
-        }else{
-            foreach ($result as $item){
+        } else {
+            foreach ($result as $item) {
                 $resultArray[] = $item;
             }
         }
@@ -77,7 +77,6 @@ class Products
         }
     }
 
-
     // get product using item id
     public function getProduct($item_id, $table = 'products')
     {
@@ -85,16 +84,14 @@ class Products
             $result = $this->db->con->query("SELECT * FROM {$table} WHERE id={$item_id}");
 
             $resultArray = array();
-
             // fetch product data one by one
             while ($item = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                 $resultArray[] = $item;
             }
-
             return $resultArray;
         }
     }
-
+ 
     // update product
     public function updateProduct($name, $category_id, $price, $image)
     {
@@ -155,7 +152,22 @@ class Products
                 }
                 $resultArray[] = $item;
             }
+        } else {
+            foreach ($result as $items) {
+                $resultArray[] = $items;
+            }
         }
         return $resultArray;
+    }
+
+    // Search products
+    public function search($search)
+    {
+        $sql = "SELECT * FROM products WHERE name LIKE '%$search%'";
+        $result = $this->db->con->query($sql);
+        if ($result) {
+            header("Location:" . $_SERVER['PHP_SELF']);
+        }
+        return $result;
     }
 }

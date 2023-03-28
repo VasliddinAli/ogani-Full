@@ -5,14 +5,14 @@ $carts = [];
 $user_id = $_SESSION['user']['id'];
 if (isset($_POST['submit_order'])) {
     $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
+    $email = $_POST['email'];
     $country = $_POST['country'];
     $region = $_POST['region'];
     $district = $_POST['district'];
     $address = $_POST['address'];
     $zipCode = $_POST['zipCode'];
     $allSum = allSum();
-    $checkout->insertCheckout($firstName, $lastName, $country, $region, $district, $address, $zipCode, $allSum, $user_id);
+    $checkout->insertCheckout($firstName, $email, $country, $region, $district, $address, $zipCode, $allSum, $user_id);
     if (isset($_SESSION['user']) && $cart->getCart($user_id)) {
         $user_cart = $cart->getCart($_SESSION['user']['id']);
         foreach ($user_cart as $item) {
@@ -28,7 +28,7 @@ if (isset($_POST['submit_order'])) {
     foreach($carts as $delCart){
         $cart->deleteCart($delCart['item_id']);
     }
-}
+}   
 
 ?>
 
@@ -67,14 +67,14 @@ if (isset($_POST['submit_order'])) {
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
-                                        <p>Fist Name<span>*</span></p>
-                                        <input name="firstName" type="text" required>
+                                        <p>Name<span>*</span></p>
+                                        <input type="text" name="firstName" value="<?= $_SESSION['user']['name']?>" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
-                                        <p>Last Name<span>*</span></p>
-                                        <input name="lastName" type="text" required>
+                                        <p>Email address<span>*</span></p>
+                                        <input name="email" value="<?= $_SESSION['user']['email']?>" type="text" required>
                                     </div>
                                 </div>
                             </div>

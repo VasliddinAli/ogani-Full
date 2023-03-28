@@ -14,7 +14,7 @@ class Checkout
     // get Checkout items
     public function getCheckout()
     {
-        $result = $this->db->con->query("SELECT * FROM checkout");
+        $result = $this->db->con->query("SELECT * FROM orders");
         if ($result->num_rows > 0) {
             $arr = [];
             foreach ($result as $row) {
@@ -25,9 +25,9 @@ class Checkout
     }
 
     // to set check data
-    public  function insertCheckout($firstName, $lastName, $country, $region, $district, $address, $zipCode, $allSum, $user_id)
+    public  function insertCheckout($firstName, $email, $country, $region, $district, $address, $zipCode, $allSum, $user_id)
     {
-        $result = "INSERT INTO `checkout` (`firstName`, `lastName`, `country`, `region`, `district`, `address`, `zipCode`, `allSum`, `user_id`) VALUES ('$firstName', '$lastName', '$country', '$region', '$district', '$address', '$zipCode', '$allSum', '$user_id');";
+        $result = "INSERT INTO `orders` (`firstName`, `email`, `country`, `region`, `district`, `address`, `zipCode`, `allSum`, `user_id`) VALUES ('$firstName', '$email', '$country', '$region', '$district', '$address', '$zipCode', '$allSum', '$user_id');";
         if ($this->db->con->query($result)) {
             header("Location:" . $_SERVER['PHP_SELF']);
             return $result;

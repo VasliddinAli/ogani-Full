@@ -49,8 +49,8 @@ $get_orders = $orders->getOrders($_GET['user_id']);
                     <?php foreach ($checkout->getCheckout() as $row) {
                         if ($row['user_id'] == $_GET['user_id']) { ?>
                             <div class="card p-3">
-                                <h5 class="fw-bold">First Name: <span class="fw-normal text-secondary ms-md-2"><?= $row['firstName'] ?></span></h5>
-                                <h5 class="fw-bold">Last Name: <span class="fw-normal text-secondary ms-md-2"><?= $row['lastName'] ?></span></h5>
+                                <h5 class="fw-bold">Name: <span class="fw-normal text-secondary ms-md-2"><?= $row['firstName'] ?></span></h5>
+                                <h5 class="fw-bold">Email: <span class="fw-normal text-secondary ms-md-2"><?= $row['email'] ?></span></h5>
                                 <h5 class="fw-bold">Country: <span class="fw-normal text-secondary ms-md-2"><?= $row['country'] ?></span></h5>
                                 <h5 class="fw-bold">Region: <span class="fw-normal text-secondary ms-md-2"><?= $row['region'] ?></span></h5>
                                 <h5 class="fw-bold">District: <span class="fw-normal text-secondary ms-md-2"><?= $row['district'] ?></span></h5>
@@ -74,14 +74,14 @@ $get_orders = $orders->getOrders($_GET['user_id']);
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($get_orders as $row) { ?>
+                            <?php foreach ($get_orders as $row) { if($row['user_id'] == $_GET['user_id']){ ?>
                                 <tr>
                                     <td><img width="70px" src="./img/<?php echo $row['image']; ?>"></td>
                                     <td><?php echo $row['name'] ?? "Unknown"; ?></td>
                                     <td class="fw-bold">$<?php echo $row['price'] ?? 0; ?></td>
                                     <td><?= $row['date'] ?></td>
                                 </tr>
-                            <?php } ?>
+                            <?php }} ?>
                         </tbody>
                     </table>
                 </div>
